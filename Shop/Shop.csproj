@@ -175,7 +175,6 @@
     <Compile Include="Session\SessionObjects\CurrentCustomerOrder.cs" />
     <Compile Include="Session\ISession.cs" />
     <Compile Include="Shared\BaseController.cs" />
-    <Compile Include="Shared\Dollar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\Session.cs" />
   </ItemGroup>

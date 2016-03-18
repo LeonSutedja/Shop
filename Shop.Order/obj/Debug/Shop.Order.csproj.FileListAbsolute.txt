@@ -26,3 +26,10 @@ J:\Cogent Flower SHop\Shop\Shop.Order\bin\Debug\Shop.Infrastructure.dll
 J:\Cogent Flower SHop\Shop\Shop.Order\bin\Debug\Shop.Infrastructure.pdb
 J:\Cogent Flower SHop\Shop\Shop.Order\obj\Debug\Shop.Order.dll
 J:\Cogent Flower SHop\Shop\Shop.Order\obj\Debug\Shop.Order.pdb
+C:\GitHub\Shop\Shop.Order\bin\Debug\Shop.Order.dll
+C:\GitHub\Shop\Shop.Order\bin\Debug\Shop.Order.pdb
+C:\GitHub\Shop\Shop.Order\bin\Debug\Shop.Infrastructure.dll
+C:\GitHub\Shop\Shop.Order\bin\Debug\Shop.Infrastructure.pdb
+C:\GitHub\Shop\Shop.Order\obj\Debug\Shop.Order.csprojResolveAssemblyReference.cache
+C:\GitHub\Shop\Shop.Order\obj\Debug\Shop.Order.dll
+C:\GitHub\Shop\Shop.Order\obj\Debug\Shop.Order.pdb

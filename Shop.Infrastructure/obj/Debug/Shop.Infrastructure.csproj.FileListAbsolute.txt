@@ -13,3 +13,8 @@ J:\Cogent Flower SHop\Shop\Shop.Infrastructure\bin\Debug\Shop.Infrastructure.dll
 J:\Cogent Flower SHop\Shop\Shop.Infrastructure\bin\Debug\Shop.Infrastructure.pdb
 J:\Cogent Flower SHop\Shop\Shop.Infrastructure\obj\Debug\Shop.Infrastructure.dll
 J:\Cogent Flower SHop\Shop\Shop.Infrastructure\obj\Debug\Shop.Infrastructure.pdb
+C:\GitHub\Shop\Shop.Infrastructure\bin\Debug\Shop.Infrastructure.dll
+C:\GitHub\Shop\Shop.Infrastructure\bin\Debug\Shop.Infrastructure.pdb
+C:\GitHub\Shop\Shop.Infrastructure\obj\Debug\Shop.Infrastructure.csprojResolveAssemblyReference.cache
+C:\GitHub\Shop\Shop.Infrastructure\obj\Debug\Shop.Infrastructure.dll
+C:\GitHub\Shop\Shop.Infrastructure\obj\Debug\Shop.Infrastructure.pdb
