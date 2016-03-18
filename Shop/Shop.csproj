@@ -170,9 +170,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Pages\Order\OrderIndexViewModel.cs" />
-    <Compile Include="Session\SessionObjects\CurrentOrderRepository.cs" />
-    <Compile Include="Session\SessionObjects\CurrentProductRepository.cs" />
-    <Compile Include="Session\SessionObjects\CurrentCustomerOrder.cs" />
+    <Compile Include="Session\SessionEntity\CurrentCustomerOrder.cs" />
+    <Compile Include="Session\SessionEntity\CurrentOrderRepository.cs" />
+    <Compile Include="Session\SessionEntity\CurrentProductRepository.cs" />
     <Compile Include="Session\ISession.cs" />
     <Compile Include="Shared\BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
