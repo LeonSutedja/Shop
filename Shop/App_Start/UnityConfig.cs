@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Practices.Unity;
-using Shop.Infrastructure;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 

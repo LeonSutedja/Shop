@@ -7,7 +7,7 @@ namespace Shop.Infrastructure.Customer
     {
         public CustomerRepository()
         {
-            var customer = Customer.Create("Sherlock", "Holmes", DateTime.Parse("11/11/1988"), "Baker", "221", "Blahsuburb", "2000");
+            var customer = Customer.Create("Sherlock", "Holmes", DateTime.Parse("11/11/1988"), "McKelvie Court", "1", "9", "Glen Waverley", "3150");
             Add(customer);
         }
     }

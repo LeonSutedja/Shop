@@ -14,6 +14,11 @@ namespace Shop
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Order", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Management",
+                url: "Management/{controller}/{action}/{id}"
+            );
         }
     }
 }

@@ -1,0 +1,109 @@
+﻿@using Shop.Order
+@model Shop.Pages.Order.OrderIndexViewModel
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Shared/Views/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <h2>Product List</h2>
+    </div>
+    <div class="col-md-3">
+        Cart: @ViewBag.Order.TotalQuantityOrdered Ordered
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Stock Number</th>
+                    <th>Ordered Quantity</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var product in Model.ProductList)
+                {
+                    var order = (Order)@ViewBag.Order;
+                    var productOrdered = order.ProductsOrdered.FirstOrDefault(po => po.ProductOrdered.Id == product.Id);
+                    <tr>
+                        <td>
+                            <strong>@product.Name</strong><br/>
+                            <span class="text-muted">@product.Description</span>
+                        </td>
+                        <td>@product.StockQuantity</td>
+                        @if (productOrdered != null)
+                        {
+                            <td>@productOrdered.QtyOrdered</td>
+                        }
+                        else
+                        {
+                            <td>0</td>
+                        }
+                        <td>
+                            <a class="btn btn-default" onclick="addOrderItem(@product.Id);">+ Add</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-default" onclick="removeOrderItem(@product.Id);">- Remove</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Order.TotalQuantityOrdered > 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <a href="@Url.Action("Index", "ProductsOrdered")" class="btn btn-primary">Process Order</a>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function addOrderItem(productId) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddOrderItem")',
+            datatype: "json",
+            traditional: true,
+            data: {
+                "productId": productId
+            },
+            success: function (data) {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert("Not enough stock. Re-run the application to refresh the stock.");
+                }
+            }
+        });
+    }
+
+    function removeOrderItem(productId) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RemoveOrderItem")',
+            datatype: "json",
+            traditional: true,
+            data: {
+                "productId": productId
+            },
+            success: function (data) {
+                if (data.success) {
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>

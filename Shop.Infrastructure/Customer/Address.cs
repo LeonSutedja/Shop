@@ -7,21 +7,23 @@ namespace Shop.Infrastructure.Customer
     public class Address : IComparable<Address>
     {
         public string Street { get; }
+        public string StreetNumber { get; }
+        public string Unit { get; }
         public string Suburb { get; }
         public string Postcode { get; }
-        public string Number { get; }
 
-        public Address(string street, string number, string suburb, string postcode)
+        public Address(string street, string streetNumber, string unit, string suburb, string postcode)
         {
             Street = street;
-            Number = number;
+            StreetNumber = streetNumber;
+            Unit = unit;
             Suburb = suburb;
             Postcode = postcode;
         }
 
         public int CompareTo(Address other)
         {
-            return ((Street == other.Street) && (Number == other.Number)
+            return ((Street == other.Street) && (StreetNumber == other.StreetNumber)
                 && (Suburb == other.Suburb) && (Postcode == other.Postcode)) ? 0 : 1;
         }
     }

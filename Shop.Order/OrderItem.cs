@@ -7,6 +7,7 @@ namespace Shop.Order
         IProduct ProductOrdered { get; }
         int QtyOrdered { get; }
         void AddQuantity(int qtyOrdered);
+        void RemoveQuantity(int qtyOrdered);
     }
 
     public class OrderItem : IOrderItem

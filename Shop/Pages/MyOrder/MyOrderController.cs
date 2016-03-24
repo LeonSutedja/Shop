@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using Shop.Shared;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Session;
+using Shop.Shared.Controllers;
 
 namespace Shop.Pages.MyOrder
 {

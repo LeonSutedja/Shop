@@ -1,0 +1,25 @@
+﻿@model Shop.Pages.Management.Account.AccountIndexViewModel
+@{
+    ViewBag.Title = "My Account";
+    Layout = "~/Shared/Views/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>My Account</h2>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <dl class="dl-horizontal">
+            <dt>Name:</dt>
+            <dd>@Model.CustomerName</dd>
+            <dt>Date of Birth:</dt>
+            <dd>@Model.CustomerDateOfBirth</dd>
+            <dt>Address:</dt>
+            <dd>@Html.Partial("~/Shared/ViewModels/Address/_Address.cshtml", Model.CustomerHomeAddress)</dd>
+        </dl>
+    </div>
+</div>

@@ -1,10 +1,8 @@
 ﻿using System.Web.Mvc;
-using Shop.Shared;
-using Shop.Infrastructure;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
-using Shop.Order;
 using Shop.Session;
+using Shop.Shared.Controllers;
 
 namespace Shop.Pages.Order
 {
@@ -30,8 +28,17 @@ namespace Shop.Pages.Order
         [HttpPost]
         public JsonResult AddOrderItem(int productId)
         {
-            if (_addOrderItem(productId)) return Json(new { success = true });
-            return Json(new { success = false });
+            return (_addOrderItem(productId)) 
+                ? Json(new { success = true }) 
+                : Json(new {success = false});
+        }
+
+        [HttpPost]
+        public JsonResult RemoveOrderItem(int productId)
+        {
+            return (_removeOrderItem(productId))
+                ? Json(new { success = true })
+                : Json(new { success = false });
         }
 
         private bool _addOrderItem(int productId)
@@ -48,6 +55,22 @@ namespace Shop.Pages.Order
 
             // Add the product
             customerCurrentOrder.AddProduct(productOrdered, 1);
+            SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Set(customerCurrentOrder);
+            return true;
+        }
+
+        private bool _removeOrderItem(int productId)
+        {
+            var productRepository = SessionFacade.CurrentProductRepository(HttpContext, CurrentUser).Get();
+            var productOrdered = productRepository.Get(productId);
+            var customerCurrentOrder = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
+            var currentOrderItem = customerCurrentOrder.GetOrderItemForProductOrdered(productId);
+
+            // Check if there's an order
+            if (currentOrderItem == null) return false;
+
+            // Add the product
+            customerCurrentOrder.RemoveProduct(productOrdered, 1);
             SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Set(customerCurrentOrder);
             return true;
         }

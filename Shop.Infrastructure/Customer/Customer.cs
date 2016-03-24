@@ -5,10 +5,10 @@ namespace Shop.Infrastructure.Customer
 {
     public class Customer : AbstractId
     {
-        public static Customer Create(string firstName, string lastName, DateTime dateOfBirth, string street, 
-            string number, string suburb, string postcode)
+        public static Customer Create(string firstName, string lastName, DateTime dateOfBirth, 
+            string street, string streetNumber, string unit, string suburb, string postcode)
         {
-            var customerHomeAddress = new Address(street, number, suburb, postcode);
+            var customerHomeAddress = new Address(street, streetNumber, unit, suburb, postcode);
             var newCustomer = new Customer(firstName, lastName, dateOfBirth, customerHomeAddress);
             return newCustomer;
         }

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Shop.Order.Order>
+@{
+    ViewBag.Title = "_MultipleOrdersTable";
+}
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var productOrdered in order.ProductsOrdered)
+                                {
+                                    <tr>
+                                        <td>@productOrdered.ProductOrdered.Name</td>
+                                        <td>@productOrdered.QtyOrdered</td>
+                                    </tr>
+                                }
+                            <tr>
+                                <td>Total Qty:</td>
+                                <td>@order.TotalQuantityOrdered</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        No orders.
+    </div>
+}

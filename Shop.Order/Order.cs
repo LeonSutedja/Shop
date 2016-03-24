@@ -11,6 +11,7 @@ namespace Shop.Order
         List<IOrderItem>  ProductsOrdered { get; }
         Customer CustomerWhoOrdered { get; }
         void AddProduct(IProduct product, int qtyOrdered);
+        void RemoveProduct(IProduct productOrdered, int qtyOrdered);
     }
 
     public class Order : AbstractId, IOrder
@@ -24,34 +25,48 @@ namespace Shop.Order
             CustomerWhoOrdered = customerWhoOrdered;
             TotalQuantityOrdered = 0;
         }
+
         public Order(Customer customerWhoOrdered, IProduct productOrdered, int qtyOrdered) {
-            ProductsOrdered = new List<IOrderItem>() {
-                new OrderItem(productOrdered, qtyOrdered)
-            };
+            ProductsOrdered = new List<IOrderItem>() { new OrderItem(productOrdered, qtyOrdered) };
             CustomerWhoOrdered = customerWhoOrdered;
             TotalQuantityOrdered += qtyOrdered;
         }
+
         public void AddProduct(IProduct productOrdered, int qtyOrdered)
         {
-            if (ProductsOrdered.Any(pd => pd.ProductOrdered.Id == productOrdered.Id))
+            IOrderItem currentProductOrdered;
+            if (_tryGetProductOrdered(productOrdered.Id, out currentProductOrdered))
             {
-                var currentProductOrdered = ProductsOrdered.First(pd => pd.ProductOrdered.Id == productOrdered.Id);
                 currentProductOrdered.AddQuantity(qtyOrdered);
                 TotalQuantityOrdered += qtyOrdered;
+                return;
             }
-            else
-            {
-                var newOrderItem = new OrderItem(productOrdered, qtyOrdered);
-                ProductsOrdered.Add(newOrderItem);
-                TotalQuantityOrdered += qtyOrdered;
-            }
+
+            var newOrderItem = new OrderItem(productOrdered, qtyOrdered);
+            ProductsOrdered.Add(newOrderItem);
+            TotalQuantityOrdered += qtyOrdered;
+        }
+
+        public void RemoveProduct(IProduct productOrdered, int qtyOrdered)
+        {
+            IOrderItem currentProductOrdered;
+            if (!_tryGetProductOrdered(productOrdered.Id, out currentProductOrdered)) return;
+            currentProductOrdered.RemoveQuantity(qtyOrdered);
+
+            if (TotalQuantityOrdered > 0) TotalQuantityOrdered -= qtyOrdered;
         }
 
         public IOrderItem GetOrderItemForProductOrdered(int productId)
         {
-            if (!ProductsOrdered.Any(pd => pd.ProductOrdered.Id == productId)) return null;
-            var currentProductOrdered = ProductsOrdered.First(pd => pd.ProductOrdered.Id == productId);
+            IOrderItem currentProductOrdered;
+            _tryGetProductOrdered(productId, out currentProductOrdered);
             return currentProductOrdered;
+        }
+
+        private bool _tryGetProductOrdered(int productId, out IOrderItem orderItem)
+        {
+            orderItem = ProductsOrdered.FirstOrDefault(pd => pd.ProductOrdered.Id == productId);
+            return (orderItem != null);
         }
     }
 }
