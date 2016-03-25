@@ -8,6 +8,6 @@ namespace Shop.Shared.Models.Models
         public DateTimeModel(DateTime? dateTime) { _dateTime = dateTime; }
         public override string ToString() => (_dateTime == null) 
             ? "" 
-            : _dateTime.Value.ToString("s");
+            : _dateTime.Value.ToString("dd/MM/yyyy");
     }
 }

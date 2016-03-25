@@ -12,6 +12,7 @@ namespace Shop.Shared.Models.ViewModels
         public AddressViewModel(Address address)
         {
             Street = address.Street;
+            StreetNumber = address.StreetNumber;
             Suburb = address.Suburb.ToUpper();
             PostCode = address.Postcode;
             Unit = address.Unit;

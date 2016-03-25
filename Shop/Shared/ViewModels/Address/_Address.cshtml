@@ -2,6 +2,8 @@
 
 <div class="row">
     <div class="col-md-12">
-        @Model.StreetNumber @Model.Street @Model.Suburb @Model.PostCode
+        @Model.Unit/@Model.StreetNumber @Model.Street<br />
+        @Model.Suburb @Model.PostCode<br />
+        <a href="http://maps.google.com/?q=@Model.StreetNumber @Model.Street @Model.Suburb @Model.PostCode">Google Map</a>
     </div>
 </div>
