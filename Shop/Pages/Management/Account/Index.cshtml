@@ -11,14 +11,59 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
+        <div class="customer-details-main">
+            <dl class="dl-horizontal">
+                <dt>Name:</dt>
+                <dd>@Model.CustomerName</dd>
+                <dt>Date of Birth:</dt>
+                <dd>@Model.CustomerDateOfBirth</dd>
+            </dl>
+            <button class="customer-details-main btn btn-default" onclick="editDetailsBtn();">Edit Details</button>
+            <script>
+                function editDetailsBtn() {
+                    $(".customer-details-main").hide();
+                    $(".customer-details-editor").show();
+                }
+                function cancelCustomerDetailsEditorBtn(e) {
+                    e.preventDefault();
+                    $(".customer-details-main").show();
+                    $(".customer-details-editor").hide();
+                    return false;
+                }
+            </script>
+        </div>
+        <div class="customer-details-editor" style="display:none">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    <label class="control-label">
+                        First Name:
+                    </label>
+                    <input name="firstName" class="form-control" type="text" value="@Model.CustomerName.FirstName" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        Last Name:
+                    </label>
+                    <input name="lastName" class="form-control" type="text" value="@Model.CustomerName.LastName" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        Date of Birth:
+                    </label>
+                    <input name="dob" class="form-control" type="text" value="@Model.CustomerDateOfBirth" />
+                </div>
+                <button class="btn btn-default" onclick="cancelCustomerDetailsEditorBtn(event);">Cancel</button>
+                <button class="btn btn-primary">Save</button>
+            }
+        </div>        
+    </div>
+    <div class="col-md-6">
         <dl class="dl-horizontal">
-            <dt>Name:</dt>
-            <dd>@Model.CustomerName</dd>
-            <dt>Date of Birth:</dt>
-            <dd>@Model.CustomerDateOfBirth</dd>
             <dt>Address:</dt>
             <dd>@Html.Partial("~/Shared/ViewModels/Address/_Address.cshtml", Model.CustomerHomeAddress)</dd>
         </dl>
+        <button class="btn btn-default">Edit Address</button>
     </div>
 </div>
