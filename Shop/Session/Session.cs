@@ -48,9 +48,5 @@ namespace Shop.Session
     {
         public static ISession<Order.Order> CurrentCustomerOrder(HttpContextBase context, Customer currentCustomer) 
             => new CurrentCustomerOrder(context, currentCustomer);
-        public static ISession<IRepository<Product>> CurrentProductRepository(HttpContextBase context, Customer currentCustomer)
-           => new CurrentProductRepository(context, currentCustomer);
-        public static ISession<IRepository<Order.Order>> CurrentOrderRepository(HttpContextBase context, Customer currentCustomer)
-           => new CurrentOrderRepository(context, currentCustomer);
     }
 }

@@ -3,13 +3,17 @@ using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 using Shop.Session;
 using Shop.Shared.Controllers;
+using Shop.Infrastructure.Product;
 
 namespace Shop.Pages.Order
 {
     public class OrderController : BaseController
     {
-        public OrderController(IRepository<Customer> customerRepository) : base(customerRepository)
+        private readonly IRepository<Product> _productRepository;
+        public OrderController(IRepository<Customer> customerRepository, 
+            IRepository<Product> productRepository) : base(customerRepository)
         {
+            _productRepository = productRepository;
         }
 
         /// <summary>
@@ -19,9 +23,8 @@ namespace Shop.Pages.Order
         public ActionResult Index()
         {
             //Hack for product repository. Rather than persisting to DB, we persist into session.
-            var productRepository = SessionFacade.CurrentProductRepository(HttpContext, CurrentUser).Get();
             ViewBag.Order = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
-            var viewModel = new OrderIndexViewModel(productRepository.All());
+            var viewModel = new OrderIndexViewModel(_productRepository.All());
             return View(viewModel);
         }
 
@@ -43,8 +46,7 @@ namespace Shop.Pages.Order
 
         private bool _addOrderItem(int productId)
         {
-            var productRepository = SessionFacade.CurrentProductRepository(HttpContext, CurrentUser).Get();
-            var productOrdered = productRepository.Get(productId);
+            var productOrdered = _productRepository.Get(productId);
             var customerCurrentOrder = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
             var currentOrderItem = customerCurrentOrder.GetOrderItemForProductOrdered(productId);
 
@@ -61,8 +63,7 @@ namespace Shop.Pages.Order
 
         private bool _removeOrderItem(int productId)
         {
-            var productRepository = SessionFacade.CurrentProductRepository(HttpContext, CurrentUser).Get();
-            var productOrdered = productRepository.Get(productId);
+            var productOrdered = _productRepository.Get(productId);
             var customerCurrentOrder = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
             var currentOrderItem = customerCurrentOrder.GetOrderItemForProductOrdered(productId);
 

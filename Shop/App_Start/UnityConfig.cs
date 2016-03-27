@@ -2,6 +2,8 @@ using System;
 using Microsoft.Practices.Unity;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
+using Shop.Order;
+using Shop.Infrastructure.Product;
 
 namespace Shop.App_Start
 {
@@ -35,7 +37,9 @@ namespace Shop.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
-            container.RegisterType<IRepository<Customer>, CustomerRepository>(new PerThreadLifetimeManager());
+            container.RegisterType<IRepository<Customer>, CustomerRepository>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IRepository<Order.Order>, OrderRepository>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IRepository<Product>, ProductRepository>(new ContainerControlledLifetimeManager());
         }
     }
 }

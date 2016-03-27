@@ -4,13 +4,20 @@ using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Session;
 using Shop.Shared.Controllers;
+using Shop.Infrastructure.Product;
 
 namespace Shop.Pages.MyOrder
 {
     public class MyOrderController : BaseController
     {
-        public MyOrderController(IRepository<Customer> customerRepository) : base(customerRepository)
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Shop.Order.Order> _orderRepository;
+
+        public MyOrderController(IRepository<Customer> customerRepository,
+            IRepository<Product> productRepository, IRepository<Shop.Order.Order> orderRepository) : base(customerRepository)
         {
+            _productRepository = productRepository;
+            _orderRepository = orderRepository;
         }
 
         /// <summary>
@@ -20,10 +27,8 @@ namespace Shop.Pages.MyOrder
         public ActionResult Index()
         {
             //Hack for product repository. Rather than persisting to DB, we persist into session.
-            var orderRepository = SessionFacade.CurrentOrderRepository(HttpContext, CurrentUser).Get();
-            var productRepository = SessionFacade.CurrentProductRepository(HttpContext, CurrentUser).Get();
             var pendingOrders = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
-            var currentCustomerOrders = new OrderService(productRepository, orderRepository).GetProcessedCustomerOrders(CurrentUser);
+            var currentCustomerOrders = new OrderService(_productRepository, _orderRepository).GetProcessedCustomerOrders(CurrentUser);
             var viewModel = new MyOrderIndexViewModel(currentCustomerOrders, pendingOrders);
             return View(viewModel);
         }
