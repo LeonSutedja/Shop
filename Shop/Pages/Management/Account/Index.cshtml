@@ -36,6 +36,7 @@
         <div class="customer-details-editor" style="display:none">
             @using (Html.BeginForm())
             {
+                <input name="id" type="hidden" value="@Model.CustomerId" />
                 <div class="form-group">
                     <label class="control-label">
                         First Name:

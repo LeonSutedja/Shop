@@ -12,10 +12,10 @@ namespace Shop.Infrastructure.Customer
             var newCustomer = new Customer(firstName, lastName, dateOfBirth, customerHomeAddress);
             return newCustomer;
         }
-        public string FirstName { get; }
-        public string LastName { get; }
-        public DateTime DateOfBirth { get; }
-        public Address HomeAddress { get; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public DateTime DateOfBirth { get; private set; }
+        public Address HomeAddress { get; private set; }
 
         public Customer(string firstName, string lastName, DateTime dob, Address homeAddress)
         {
@@ -24,5 +24,14 @@ namespace Shop.Infrastructure.Customer
             DateOfBirth = dob;
             HomeAddress = homeAddress;
         }
+
+        public void SetName(string newFirstName, string newLastName)
+        {
+            FirstName = newFirstName;
+            LastName = newLastName;
+        }
+
+        public void SetDateOfBirth(DateTime dateOfBirth) => DateOfBirth = dateOfBirth;
+        public void SetAddress(Address newAddress) => HomeAddress = newAddress;
     }
 }

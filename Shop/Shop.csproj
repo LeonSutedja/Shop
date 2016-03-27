@@ -163,6 +163,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Pages\Management\Account\AccountController.cs" />
+    <Compile Include="Pages\Management\Account\AccountDetailsEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountIndexViewModel.cs" />
     <Compile Include="Pages\MyOrder\MyOrderController.cs" />
     <Compile Include="Pages\MyOrder\MyOrderIndexViewModel.cs" />
@@ -219,7 +220,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Shared\Web.config" />
+    <Content Include="Shared\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Shared\Views\_ViewStart.cshtml" />
     <Content Include="Shared\Views\Error.cshtml" />
     <Content Include="Shared\Views\_Layout.cshtml" />
