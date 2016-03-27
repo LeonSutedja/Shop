@@ -20,21 +20,9 @@
                 <dd>@Model.CustomerDateOfBirth</dd>
             </dl>
             <button class="customer-details-main btn btn-default" onclick="editDetailsBtn();">Edit Details</button>
-            <script>
-                function editDetailsBtn() {
-                    $(".customer-details-main").hide();
-                    $(".customer-details-editor").show();
-                }
-                function cancelCustomerDetailsEditorBtn(e) {
-                    e.preventDefault();
-                    $(".customer-details-main").show();
-                    $(".customer-details-editor").hide();
-                    return false;
-                }
-            </script>
         </div>
         <div class="customer-details-editor" style="display:none">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("UpdateAccountDetails", "Account"))
             {
                 <input name="id" type="hidden" value="@Model.CustomerId" />
                 <div class="form-group">
@@ -58,13 +46,77 @@
                 <button class="btn btn-default" onclick="cancelCustomerDetailsEditorBtn(event);">Cancel</button>
                 <button class="btn btn-primary">Save</button>
             }
-        </div>        
+        </div> 
+        <script>
+                function editDetailsBtn() {
+                    $(".customer-details-main").hide();
+                    $(".customer-details-editor").show();
+                }
+                function cancelCustomerDetailsEditorBtn(e) {
+                    e.preventDefault();
+                    $(".customer-details-main").show();
+                    $(".customer-details-editor").hide();
+                    return false;
+                }
+        </script>       
     </div>
     <div class="col-md-6">
-        <dl class="dl-horizontal">
-            <dt>Address:</dt>
-            <dd>@Html.Partial("~/Shared/ViewModels/Address/_Address.cshtml", Model.CustomerHomeAddress)</dd>
-        </dl>
-        <button class="btn btn-default">Edit Address</button>
+        <div class="customer-address-main">
+            <dl class="dl-horizontal">
+                <dt>Address:</dt>
+                <dd>@Html.Partial("~/Shared/ViewModels/Address/_Address.cshtml", Model.CustomerHomeAddress)</dd>
+            </dl>
+            <button onclick="editAddressBtn();" class="btn btn-default">Edit Address</button>
+        </div>
+        <div class="customer-address-editor" style="display:none">
+            @using (Html.BeginForm("UpdateAccountAddress", "Account"))
+            {
+                <input name="id" type="hidden" value="@Model.CustomerId" />
+                <div class="form-group">
+                    <label class="control-label">
+                        Street:
+                    </label>
+                    <input name="street" class="form-control" type="text" value="@Model.CustomerHomeAddress.Street" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        Number:
+                    </label>
+                    <input name="streetNumber" class="form-control" type="text" value="@Model.CustomerHomeAddress.StreetNumber" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        Unit:
+                    </label>
+                    <input name="unit" class="form-control" type="text" value="@Model.CustomerHomeAddress.Unit" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        PostCode:
+                    </label>
+                    <input name="postcode" class="form-control" type="text" value="@Model.CustomerHomeAddress.PostCode" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">
+                        Suburb:
+                    </label>
+                    <input name="suburb" class="form-control" type="text" value="@Model.CustomerHomeAddress.Suburb" />
+                </div>
+                <button class="btn btn-default" onclick="cancelCustomerAddressEditorBtn(event);">Cancel</button>
+                <button class="btn btn-primary">Save</button>
+            }
+        </div>
+        <script>
+                function editAddressBtn() {
+                    $(".customer-address-main").hide();
+                    $(".customer-address-editor").show();
+                }
+                function cancelCustomerAddressEditorBtn(e) {
+                    e.preventDefault();
+                    $(".customer-address-main").show();
+                    $(".customer-address-editor").hide();
+                    return false;
+                }
+        </script>
     </div>
 </div>

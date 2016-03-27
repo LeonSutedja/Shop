@@ -40,6 +40,9 @@ namespace Shop.App_Start
             container.RegisterType<IRepository<Customer>, CustomerRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRepository<Order.Order>, OrderRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRepository<Product>, ProductRepository>(new ContainerControlledLifetimeManager());
+
+
+            container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
         }
     }
 }

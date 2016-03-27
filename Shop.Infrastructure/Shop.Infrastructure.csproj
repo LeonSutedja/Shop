@@ -43,6 +43,8 @@
     <Compile Include="Customer\Address.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerRepository.cs" />
+    <Compile Include="Customer\CustomerService.cs" />
+    <Compile Include="Customer\ICustomerService.cs" />
     <Compile Include="Product\Product.cs" />
     <Compile Include="Product\ProductRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />

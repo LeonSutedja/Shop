@@ -8,8 +8,10 @@ namespace Shop.Pages.Management.Account
 {
     public class AccountController : BaseController
     {
-        public AccountController(IRepository<Customer> customerRepository) : base(customerRepository)
+        private readonly ICustomerService _customerService;
+        public AccountController(IRepository<Customer> customerRepository, ICustomerService customerService) : base(customerRepository)
         {
+            _customerService = customerService;
         }
 
         /// <summary>
@@ -23,13 +25,18 @@ namespace Shop.Pages.Management.Account
         }
 
         [HttpPost]
-        public ActionResult Index(AccountDetailsEditViewModel viewModel)
+        public ActionResult UpdateAccountDetails(AccountDetailsEditViewModel viewModel)
         {
-            //Hack for product repository. Rather than persisting to DB, we persist into session.
-            var customer = _customerRepository.Get(CurrentUser.Id);
-            customer.SetName(viewModel.FirstName, viewModel.LastName);
-            customer.SetDateOfBirth(DateTime.Parse(viewModel.Dob));
-            return View(new AccountIndexViewModel(CurrentUser));
+            _customerService.ChangeCustomerDetails(CurrentUser.Id, viewModel.FirstName, viewModel.LastName, DateTime.Parse(viewModel.Dob));
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateAccountAddress(string street, string streetNumber, string unit, string suburb, string postcode)
+        {
+            var newAddress = new Address(street, streetNumber, unit, suburb, postcode);
+            _customerService.ChangeCustomerAddress(CurrentUser.Id, newAddress);
+            return RedirectToAction("Index");
         }
     }
 }
