@@ -4,21 +4,17 @@ using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Session;
 using Shop.Shared.Controllers;
-using Shop.Infrastructure.Product;
 
 namespace Shop.Pages.ProductsOrdered
 {
     public class ProductsOrderedController : BaseController
     {
-
-        private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<Shop.Order.Order> _orderRepository;
+        private readonly IOrderService _orderService;
 
         public ProductsOrderedController(IRepository<Customer> customerRepository,
-            IRepository<Product> productRepository, IRepository<Shop.Order.Order> orderRepository) : base(customerRepository)
+            IOrderService orderService) : base(customerRepository)
         {
-            _productRepository = productRepository;
-            _orderRepository = orderRepository;
+            _orderService = orderService;
         }
 
         /// <summary>
@@ -40,8 +36,7 @@ namespace Shop.Pages.ProductsOrdered
         public ActionResult ProcessOrder()
         {
             var order = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
-            var orderService = new OrderService(_productRepository, _orderRepository);
-            orderService.ProcessOrder(order);
+            _orderService.ProcessOrder(order);
             SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Reset();
             return RedirectToAction("Index");
         }

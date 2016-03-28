@@ -1,0 +1,7 @@
+﻿This particular place is to handle various shared item across all application cross cutting concerns.
+
+There are currently 4 different types that could be shared.
+1. Controllers - current example here is the base controllers which currently is use for all other controllers.
+2. Models - Shared Model (Only) which is used accross all application.
+3. Views - Shared Views (Only) which is used accross all application. This could include layout, and error message handle.
+4. ViewModels - Shared combination of Models and its views accross all application.

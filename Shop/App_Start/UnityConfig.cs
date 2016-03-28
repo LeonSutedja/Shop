@@ -37,6 +37,8 @@ namespace Shop.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
+
+            /// Currently, we use singleton for repository and services. This is to handle function where object not being persisted into the database.
             container.RegisterType<IRepository<Customer>, CustomerRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRepository<Order.Order>, OrderRepository>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRepository<Product>, ProductRepository>(new ContainerControlledLifetimeManager());

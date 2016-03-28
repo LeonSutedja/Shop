@@ -1,6 +1,6 @@
 ﻿using Shop.Infrastructure.Customer;
 
-namespace Shop.Shared.Models.Models
+namespace Shop.Shared.Models
 {
     /// <summary>
     /// NameViewModel purpose is to handle name viewing. It's main concern is displaying the name to the user according to the application needs.

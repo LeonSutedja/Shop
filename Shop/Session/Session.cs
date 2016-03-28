@@ -1,7 +1,5 @@
 ﻿using System.Web;
 using Shop.Infrastructure.Customer;
-using Shop.Infrastructure.Product;
-using Shop.Infrastructure.Repository;
 using Shop.Session.SessionEntity;
 
 namespace Shop.Session

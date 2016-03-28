@@ -1,5 +1,5 @@
 ﻿using Shop.Infrastructure.Customer;
-using Shop.Shared.Models.Models;
+using Shop.Shared.Models;
 using Shop.Shared.Models.ViewModels;
 
 namespace Shop.Pages.Management.Account

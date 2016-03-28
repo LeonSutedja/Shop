@@ -1,0 +1,7 @@
+﻿This folder is to handle various MVC pages.
+
+In here, rather than using the normal Model-View-Controller folder provided by the Framework, we combine the
+relevant of all component into one place. The idea is to be able to easily managed the relevant component together.
+
+Each folder is a representation of a particular context. It may have multiple controllers that belongs to that context.
+Views that are relevant and any models necessary for the controller to run can be put inside the same folder.

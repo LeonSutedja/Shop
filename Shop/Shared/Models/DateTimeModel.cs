@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shop.Shared.Models.Models
+namespace Shop.Shared.Models
 {
     public class DateTimeModel
     {
