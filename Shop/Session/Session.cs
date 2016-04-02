@@ -25,10 +25,7 @@ namespace Shop.Session
             return (T)_context.Session[sessionName];
         }
 
-        public virtual void Reset()
-        {
-            Set(_newEntity());
-        }
+        public virtual void Reset() => Set(_newEntity());
 
         public virtual void Set(T newEntity)
         {
