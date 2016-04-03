@@ -3,11 +3,6 @@
 }
 @if (order.ProductsOrdered.Any())
 {
-    <style>
-        .dialogFixed {
-            position: fixed !important;
-        }
-    </style>
     <div id="shopping-cart-dialog-container">
         <div id="shopping-cart-dialog" title="">
             <div class="table-responsive">
@@ -58,6 +53,7 @@
                 traditional: true,
                 success: function (data) {
                     if (data.success) {
+                        alert("Thank you for your purchase. Purchased order can be seen in My Order page.")
                         location.reload();
                     }
                 }
@@ -80,6 +76,7 @@
                 }
             });
         }
+    // When the window is resize, we want to re-position dialog box again.
     $(window).resize(function () {
         $("#shopping-cart-dialog").dialog("option", "position", { my: 'right bottom', at: 'right bottom', of: window });
     });
