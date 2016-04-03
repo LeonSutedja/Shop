@@ -54,6 +54,7 @@ namespace Shop.Order
             currentProductOrdered.RemoveQuantity(qtyOrdered);
 
             if (TotalQuantityOrdered > 0) TotalQuantityOrdered -= qtyOrdered;
+            if (currentProductOrdered.QtyOrdered == 0) ProductsOrdered.Remove(currentProductOrdered);
         }
 
         public IOrderItem GetOrderItemForProductOrdered(int productId)

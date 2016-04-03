@@ -7,6 +7,11 @@ namespace Shop
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // Problem is currently with jquery-ui and bootstrap together.
+            // In order to be able to use jquery dialog properly, we need the bootstrap javascript
+            // to be added before the jquery-ui.
+            // Some bootstrap javascript functionality may be broken because of the jquery-ui
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/respond.js"));
