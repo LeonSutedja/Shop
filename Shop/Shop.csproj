@@ -171,7 +171,6 @@
     <Compile Include="Pages\Management\Account\AccountIndexViewModel.cs" />
     <Compile Include="Pages\MyOrder\MyOrderController.cs" />
     <Compile Include="Pages\MyOrder\MyOrderIndexViewModel.cs" />
-    <Compile Include="Pages\ProductsOrdered\ProductsOrderedController.cs" />
     <Compile Include="Pages\Order\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,6 +178,7 @@
     <Compile Include="Pages\Order\OrderIndexViewModel.cs" />
     <Compile Include="Session\SessionEntity\CurrentCustomerOrder.cs" />
     <Compile Include="Session\ISession.cs" />
+    <Compile Include="Shared\Components\ShoppingCartDialog\ShoppingCartDialogController.cs" />
     <Compile Include="Shared\Controllers\BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\Session.cs" />
@@ -228,7 +228,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\flowers_o_163719.jpg" />
     <Content Include="Pages\WhatIs.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -278,14 +277,16 @@
     <Content Include="Shared\Views\_ViewStart.cshtml" />
     <Content Include="Shared\Views\Error.cshtml" />
     <Content Include="Shared\Views\_Layout.cshtml" />
-    <Content Include="Pages\ProductsOrdered\Index.cshtml" />
     <Content Include="Pages\MyOrder\Index.cshtml" />
     <Content Include="Pages\MyOrder\_MultipleOrdersTable.cshtml" />
     <Content Include="Shared\ViewModels\Address\_Address.cshtml" />
-    <Content Include="Shared\ViewModels\ShoppingCart\_ShoppingCart.cshtml" />
+    <Content Include="Shared\Components\ShoppingCartDialog\_ShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
+    <Folder Include="Shared\ViewModels\ShoppingCart\" />
+    <Folder Include="Shared\Views\ShoppingCartDialog\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

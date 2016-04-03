@@ -1,0 +1,101 @@
+﻿@{ 
+    var order = (Shop.Order.Order)ViewBag.Order;
+}
+@if (order.ProductsOrdered.Any())
+{
+    <style>
+        .dialogFixed {
+            position: fixed !important;
+        }
+    </style>
+    <div id="shopping-cart-dialog-container">
+        <div id="shopping-cart-dialog" title="">
+            <div class="table-responsive">
+                <table class="table small">
+                    <tbody>
+                        @foreach (var productOrdered in order.ProductsOrdered)
+                        {
+                            <tr>
+                                <td>
+                                    @productOrdered.ProductOrdered.Name
+                                </td>
+                                <td>
+                                    Qty: <span class="text-muted">@productOrdered.QtyOrdered</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-xs" onclick="removeOrderItem(@productOrdered.ProductOrdered.Id);">Reduce Quantity</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button class="btn btn-default btn-xs" onclick="clearOrder();">Clear Order</button>
+                <button class="btn btn-primary btn-xs" onclick="processOrder();">Process</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function clearOrder() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ClearOrder", "ShoppingCartDialog")',
+                datatype: "json",
+                traditional: true,                
+                success: function (data) {
+                    if (data.success) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+
+        function processOrder() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ProcessOrder", "ShoppingCartDialog")',
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    if (data.success) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+
+        function removeOrderItem(productId) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RemoveOrderItem")',
+                datatype: "json",
+                traditional: true,
+                data: {
+                    "productId": productId
+                },
+                success: function (data) {
+                    if (data.success) {
+                        location.reload();
+                    }
+                }
+            });
+        }
+    $(window).resize(function () {
+        $("#shopping-cart-dialog").dialog("option", "position", { my: 'right bottom', at: 'right bottom', of: window });
+    });
+    $(document).ready(function () {
+        $('#shopping-cart-dialog').dialog({
+            title: "My Cart",
+            width: 400,
+            draggable: false,
+            position: { my: 'right bottom', at: 'right bottom', of: window }
+        }).dialogExtend({
+            "closable": false,
+            "maximizable": false,
+            "minimizable": true,
+            "minimizeLocation": 'right',
+            "titlebar": 'transparent'
+        });
+    });
+    </script>
+}
