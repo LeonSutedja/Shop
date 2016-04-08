@@ -4,6 +4,7 @@ using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Infrastructure.Product;
+using System.Linq;
 
 namespace Shop.App_Start
 {
@@ -38,12 +39,13 @@ namespace Shop.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            /// Currently, we use singleton for repository and services. This is to handle function where object not being persisted into the database.
-            container.RegisterType<IRepository<Customer>, CustomerRepository>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IRepository<Order.Order>, OrderRepository>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IRepository<Product>, ProductRepository>(new ContainerControlledLifetimeManager());
+            /// Currently, we use singleton for repository. This is to handle function where object not being persisted into the database.
+            /// The following line is to map between generic interface of IRepository to all of their implementations.
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
+                .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                i.GetGenericTypeDefinition() == typeof(IRepository<>))), WithMappings.FromAllInterfaces, WithName.Default, WithLifetime.ContainerControlled);
 
-
+            // External services mapping
             container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
         }
