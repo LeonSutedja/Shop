@@ -3,15 +3,20 @@ using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 using Shop.Shared.Controllers;
 using System;
+using Shop.Shared.Models.CommandHandler;
 
 namespace Shop.Pages.Management.Account
 {
     public class AccountController : BaseController
     {
         private readonly ICustomerService _customerService;
-        public AccountController(IRepository<Customer> customerRepository, ICustomerService customerService) : base(customerRepository)
+        private readonly ICommandHandlerFactory _commandHandlerFactory;
+
+        public AccountController(IRepository<Customer> customerRepository, 
+            ICustomerService customerService, ICommandHandlerFactory commandHandlerFactory) : base(customerRepository)
         {
             _customerService = customerService;
+            _commandHandlerFactory = commandHandlerFactory;
         }
 
         /// <summary>
@@ -27,15 +32,14 @@ namespace Shop.Pages.Management.Account
         [HttpPost]
         public ActionResult UpdateAccountDetails(AccountDetailsEditViewModel viewModel)
         {
-            _customerService.ChangeCustomerDetails(CurrentUser.Id, viewModel.FirstName, viewModel.LastName, DateTime.Parse(viewModel.Dob));
+            var isSuccess = _commandHandlerFactory.GetCommandHandler<AccountDetailsEditViewModel, bool>().Handle(viewModel, CurrentUser.Id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult UpdateAccountAddress(string street, string streetNumber, string unit, string suburb, string postcode)
+        public ActionResult UpdateAccountAddress(AccountAddressEditViewModel model)
         {
-            var newAddress = new Address(street, streetNumber, unit, suburb, postcode);
-            _customerService.ChangeCustomerAddress(CurrentUser.Id, newAddress);
+            var isSuccess = _commandHandlerFactory.GetCommandHandler<AccountAddressEditViewModel, bool>().Handle(model, CurrentUser.Id);
             return RedirectToAction("Index");
         }
     }

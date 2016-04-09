@@ -167,6 +167,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Pages\Management\Account\AccountController.cs" />
+    <Compile Include="Pages\Management\Account\AccountAddressEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountDetailsEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountIndexViewModel.cs" />
     <Compile Include="Pages\MyOrder\MyOrderController.cs" />
@@ -182,6 +183,8 @@
     <Compile Include="Shared\Controllers\BaseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\Session.cs" />
+    <Compile Include="Shared\Models\CommandHandler\ICommandHandler.cs" />
+    <Compile Include="Shared\Models\CommandHandler\ICommandHandlerFactory.cs" />
     <Compile Include="Shared\ViewModels\Address\AddressViewModel.cs" />
     <Compile Include="Shared\Models\DateTimeModel.cs" />
     <Compile Include="Shared\Models\NameModel.cs" />

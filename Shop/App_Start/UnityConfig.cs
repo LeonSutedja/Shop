@@ -5,6 +5,7 @@ using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Infrastructure.Product;
 using System.Linq;
+using Shop.Shared.Models.CommandHandler;
 
 namespace Shop.App_Start
 {
@@ -45,9 +46,17 @@ namespace Shop.App_Start
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
                 i.GetGenericTypeDefinition() == typeof(IRepository<>))), WithMappings.FromAllInterfaces, WithName.Default, WithLifetime.ContainerControlled);
 
-            // External services mapping
+            // External services mapping    
             container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
+
+            // Handlers
+            container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>(new ContainerControlledLifetimeManager());
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
+                .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>))), WithMappings.FromAllInterfaces, 
+                WithName.Default, WithLifetime.ContainerControlled);
+
         }
     }
 }

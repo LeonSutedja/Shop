@@ -1,4 +1,8 @@
-﻿namespace Shop.Pages.Management.Account
+﻿using Shop.Infrastructure.Customer;
+using Shop.Shared.Models.CommandHandler;
+using System;
+
+namespace Shop.Pages.Management.Account
 {
     public class AccountDetailsEditViewModel
     {
@@ -8,5 +12,20 @@
         public string Dob { get; set; }
 
         public AccountDetailsEditViewModel() { }
+    }
+
+    public class AccountDetailsEditViewModelHandler : ICommandHandler<AccountDetailsEditViewModel, bool>
+    {
+        private readonly ICustomerService _customerService;
+        public AccountDetailsEditViewModelHandler(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
+
+        public bool Handle(AccountDetailsEditViewModel model, int userId)
+        {
+            return _customerService.ChangeCustomerDetails(userId, model.FirstName,
+                model.LastName, DateTime.Parse(model.Dob));
+        }
     }
 }
