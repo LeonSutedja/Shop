@@ -170,6 +170,8 @@
     <Compile Include="Pages\Management\Account\AccountAddressEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountDetailsEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountIndexViewModel.cs" />
+    <Compile Include="Pages\Management\Product\ProductEditViewModel.cs" />
+    <Compile Include="Pages\Management\Product\ProductController.cs" />
     <Compile Include="Pages\MyOrder\MyOrderController.cs" />
     <Compile Include="Pages\MyOrder\MyOrderIndexViewModel.cs" />
     <Compile Include="Pages\Order\OrderController.cs" />
@@ -247,6 +249,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Pages\Management\Product\Index.cshtml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
     <Content Include="Scripts\jquery-2.2.2.min.js" />

@@ -48,6 +48,7 @@ namespace Shop.App_Start
 
             // External services mapping    
             container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IProductService, ProductService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
 
             // Handlers

@@ -28,18 +28,13 @@ namespace Shop.Infrastructure.Repository
             entity.SetId(_id);
             _collections.Add(entity);
         }
-        public T Get(int id)
-        {
-            return _collections.First(item => item.Id == id);
-        }
+        public T Get(int id) => _collections.First(item => item.Id == id);
+
         public void Remove(T entity)
         {
             _id--;
             _collections.Remove(entity);
         }
-        public IEnumerable<T> All()
-        {
-            return _collections.ToList();
-        }
+        public IEnumerable<T> All() => _collections.ToList();
     }    
 }

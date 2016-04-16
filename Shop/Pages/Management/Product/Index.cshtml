@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Shop.Infrastructure.Product.Product>
+@{
+    ViewBag.Title = "Product Management";
+    Layout = "~/Shared/Views/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Product Management</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        <div id="product-details-@product.Id">
+                            <strong>@product.Name</strong><br />
+                            @product.Description
+                           
+                        </div>
+                        <div id="product-details-editor-@product.Id" style="display:none">
+                            @using (Html.BeginForm("UpdateProduct", "Product"))
+                            {
+                                <input name="id" type="hidden" value="@product.Id" />
+                                <div class="form-group">
+                                    <input name="name" placeholder="Name" class="form-control" type="text" value="@product.Name" />
+                                </div>
+                                <div class="form-group">                                    
+                                    <input name="description" placeholder="Description" class="form-control" type="text" value="@product.Description" />
+                                </div>
+                                <a class="btn btn-default" onclick="cancelDetailsEditorBtn(@product.Id);">Cancel</a>
+                                <button class="btn btn-primary">Save</button>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-default" onclick="editDetailsBtn(@product.Id)">Edit</button>
+                    </td>
+                </tr>
+            }            
+        </table>
+        <script>
+                function editDetailsBtn(id) {
+                    $("#product-details-" + id).hide();
+                    $("#product-details-editor-" + id).show();
+                }
+                function cancelDetailsEditorBtn(id) {
+                    $("#product-details-" + id).show();
+                    $("#product-details-editor-" + id).hide();
+                    return false;
+                }
+        </script>       
+    </div>
+</div>

@@ -23,9 +23,7 @@ namespace Shop.Pages.Management.Account
         }
 
         public bool Handle(AccountDetailsEditViewModel model, int userId)
-        {
-            return _customerService.ChangeCustomerDetails(userId, model.FirstName,
+            => _customerService.ChangeCustomerDetails(userId, model.FirstName,
                 model.LastName, DateTime.Parse(model.Dob));
-        }
     }
 }
