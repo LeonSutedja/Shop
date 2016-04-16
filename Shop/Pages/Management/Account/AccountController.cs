@@ -2,8 +2,8 @@
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 using Shop.Shared.Controllers;
-using System;
 using Shop.Shared.Models.CommandHandler;
+using Shop.Infrastructure.Interfaces;
 
 namespace Shop.Pages.Management.Account
 {

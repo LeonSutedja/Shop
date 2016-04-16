@@ -1,4 +1,4 @@
-﻿namespace Shop.Infrastructure.Product
+﻿namespace Shop.Infrastructure.Interfaces
 {
     public interface IProductService
     {

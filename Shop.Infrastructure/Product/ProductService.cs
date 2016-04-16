@@ -1,4 +1,5 @@
-﻿using Shop.Infrastructure.Repository;
+﻿using Shop.Infrastructure.Interfaces;
+using Shop.Infrastructure.Repository;
 using System;
 
 namespace Shop.Infrastructure.Product

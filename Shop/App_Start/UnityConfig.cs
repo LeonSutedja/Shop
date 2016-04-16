@@ -1,11 +1,12 @@
 using System;
 using Microsoft.Practices.Unity;
 using Shop.Infrastructure.Customer;
-using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Infrastructure.Product;
 using System.Linq;
 using Shop.Shared.Models.CommandHandler;
+using Shop.Infrastructure.Interfaces;
+using Shop.Infrastructure.Repository;
 
 namespace Shop.App_Start
 {
@@ -46,11 +47,14 @@ namespace Shop.App_Start
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
                 i.GetGenericTypeDefinition() == typeof(IRepository<>))), WithMappings.FromAllInterfaces, WithName.Default, WithLifetime.ContainerControlled);
 
-            // External services mapping    
-            container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
+            // External services mapping
+            // Map shop.infrastructure.service
             container.RegisterType<IProductService, ProductService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ICustomerService, CustomerService>(new ContainerControlledLifetimeManager());
 
+            // Map Shop.Order
+            container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
+            
             // Handlers
             container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>(new ContainerControlledLifetimeManager());
             container.RegisterTypes(AllClasses.FromLoadedAssemblies()

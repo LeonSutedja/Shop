@@ -1,6 +1,6 @@
 ﻿using Shop.Infrastructure.Customer;
+using Shop.Infrastructure.Interfaces;
 using Shop.Shared.Models.CommandHandler;
-using System;
 
 namespace Shop.Pages.Management.Account
 {

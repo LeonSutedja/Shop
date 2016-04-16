@@ -1,0 +1,2 @@
+﻿In this namespace, we separate the public interfaces.
+This way, in any other places where it requires shop.infrastructure, we only need to add this interface namespace.

@@ -44,14 +44,17 @@
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerRepository.cs" />
     <Compile Include="Customer\CustomerService.cs" />
-    <Compile Include="Customer\ICustomerService.cs" />
+    <Compile Include="Interfaces\ICustomerService.cs" />
     <Compile Include="Product\ProductService.cs" />
-    <Compile Include="Product\IProductService.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Product\Product.cs" />
     <Compile Include="Product\ProductRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Interfaces\WhatIs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

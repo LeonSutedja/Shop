@@ -1,4 +1,4 @@
-﻿using Shop.Infrastructure.Product;
+﻿using Shop.Infrastructure.Interfaces;
 using Shop.Shared.Models.CommandHandler;
 
 namespace Shop.Pages.Management.Product

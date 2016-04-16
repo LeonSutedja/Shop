@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Shop.Infrastructure.Customer;
+using System;
 
-namespace Shop.Infrastructure.Customer
+namespace Shop.Infrastructure.Interfaces
 {
     public interface ICustomerService
     {
