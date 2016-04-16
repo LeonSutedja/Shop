@@ -13,40 +13,41 @@
 <div class="row">
     <div class="col-md-6">
         <div class="customer-details-main">
-            <dl class="dl-horizontal">
-                <dt>Name:</dt>
-                <dd>@Model.CustomerName</dd>
-                <dt>Date of Birth:</dt>
-                <dd>@Model.CustomerDateOfBirth</dd>
-            </dl>
-            <button class="customer-details-main btn btn-default" onclick="editDetailsBtn();">Edit Details</button>
+            <div class="row">
+                <div class="col-md-3">
+                    <Label>Name:</Label>
+                </div>
+                <div class="col-md-9">
+                    @Model.CustomerName
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <Label>Date of Birth:</Label>
+                </div>
+                <div class="col-md-9">
+                    @Model.CustomerDateOfBirth
+                </div>
+            </div>
         </div>
+        <button class="customer-details-main btn btn-default" onclick="editDetailsBtn();">Edit Details</button>
         <div class="customer-details-editor" style="display:none">
             @using (Html.BeginForm("UpdateAccountDetails", "Account"))
             {
                 <input name="id" type="hidden" value="@Model.CustomerId" />
                 <div class="form-group">
-                    <label class="control-label">
-                        First Name:
-                    </label>
-                    <input name="firstName" class="form-control" type="text" value="@Model.CustomerName.FirstName" />
+                    <input name="firstName" placeholder="First Name" class="form-control" type="text" value="@Model.CustomerName.FirstName" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">
-                        Last Name:
-                    </label>
-                    <input name="lastName" class="form-control" type="text" value="@Model.CustomerName.LastName" />
+                    <input name="lastName" placeholder="Last Name" class="form-control" type="text" value="@Model.CustomerName.LastName" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">
-                        Date of Birth:
-                    </label>
-                    <input name="dob" class="form-control" type="text" value="@Model.CustomerDateOfBirth" />
+                    <input name="dob" placeholder="Date of Birth" class="form-control" type="text" value="@Model.CustomerDateOfBirth" />
                 </div>
                 <button class="btn btn-default" onclick="cancelCustomerDetailsEditorBtn(event);">Cancel</button>
                 <button class="btn btn-primary">Save</button>
             }
-        </div> 
+        </div>
         <script>
                 function editDetailsBtn() {
                     $(".customer-details-main").hide();
@@ -58,14 +59,19 @@
                     $(".customer-details-editor").hide();
                     return false;
                 }
-        </script>       
-    </div>
-    <div class="col-md-6">
+        </script>
+    </div>   
+               
+   <div class="col-md-6">
         <div class="customer-address-main">
-            <dl class="dl-horizontal">
-                <dt>Address:</dt>
-                <dd>@Html.Partial("~/Shared/ViewModels/Address/_Address.cshtml", Model.CustomerHomeAddress)</dd>
-            </dl>
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Address:</label>
+                </div>
+                <div class="col-md-9">
+                    @Html.Partial("~/Shared/ViewModels/Address/_Address.cshtml", Model.CustomerHomeAddress)
+                </div>
+            </div>
             <button onclick="editAddressBtn();" class="btn btn-default">Edit Address</button>
         </div>
         <div class="customer-address-editor" style="display:none">
@@ -73,34 +79,19 @@
             {
                 <input name="id" type="hidden" value="@Model.CustomerId" />
                 <div class="form-group">
-                    <label class="control-label">
-                        Street:
-                    </label>
-                    <input name="street" class="form-control" type="text" value="@Model.CustomerHomeAddress.Street" />
+                    <input name="street" placeholder="Street Name" class="form-control" type="text" value="@Model.CustomerHomeAddress.Street" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">
-                        Number:
-                    </label>
-                    <input name="streetNumber" class="form-control" type="text" value="@Model.CustomerHomeAddress.StreetNumber" />
+                    <input name="streetNumber" placeholder="Number" class="form-control" type="text" value="@Model.CustomerHomeAddress.StreetNumber" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">
-                        Unit:
-                    </label>
-                    <input name="unit" class="form-control" type="text" value="@Model.CustomerHomeAddress.Unit" />
+                    <input name="unit" placeholder="Unit" class="form-control" type="text" value="@Model.CustomerHomeAddress.Unit" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">
-                        PostCode:
-                    </label>
-                    <input name="postcode" class="form-control" type="text" value="@Model.CustomerHomeAddress.PostCode" />
+                    <input name="postcode" placeholder="Postcode" class="form-control" type="text" value="@Model.CustomerHomeAddress.PostCode" />
                 </div>
                 <div class="form-group">
-                    <label class="control-label">
-                        Suburb:
-                    </label>
-                    <input name="suburb" class="form-control" type="text" value="@Model.CustomerHomeAddress.Suburb" />
+                    <input name="suburb" placeholder="Suburb" class="form-control" type="text" value="@Model.CustomerHomeAddress.Suburb" />
                 </div>
                 <button class="btn btn-default" onclick="cancelCustomerAddressEditorBtn(event);">Cancel</button>
                 <button class="btn btn-primary">Save</button>
