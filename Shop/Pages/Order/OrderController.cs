@@ -10,6 +10,7 @@ namespace Shop.Pages.Order
     public class OrderController : BaseController
     {
         private readonly IRepository<Product> _productRepository;
+
         public OrderController(IRepository<Customer> customerRepository, 
             IRepository<Product> productRepository) : base(customerRepository)
         {
@@ -30,19 +31,11 @@ namespace Shop.Pages.Order
 
         [HttpPost]
         public JsonResult AddOrderItem(int productId)
-        {
-            return (_addOrderItem(productId)) 
-                ? Json(new { success = true }) 
-                : Json(new {success = false});
-        }
+            => Json(new { success = _addOrderItem(productId) });
 
         [HttpPost]
         public JsonResult RemoveOrderItem(int productId)
-        {
-            return (_removeOrderItem(productId))
-                ? Json(new { success = true })
-                : Json(new { success = false });
-        }
+            => Json(new { success = _removeOrderItem(productId) });
 
         private bool _addOrderItem(int productId)
         {
