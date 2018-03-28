@@ -30,8 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,9 +56,33 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableCreator\AbstractAutoColumnRepository.cs" />
+    <Compile Include="TableCreator\AbstractTableColumn.cs" />
+    <Compile Include="TableCreator\ColumnFilter\FilterDateRange.cs" />
+    <Compile Include="TableCreator\ColumnFilter\FilterFlag.cs" />
+    <Compile Include="TableCreator\ColumnFilter\FilterFreeText.cs" />
+    <Compile Include="TableCreator\ColumnFilter\FilterMultiselectText.cs" />
+    <Compile Include="TableCreator\ColumnFilter\FilterNumberRange.cs" />
+    <Compile Include="TableCreator\ColumnFilter\NumericComparisonType.cs" />
+    <Compile Include="TableCreator\ColumnFilter\TableColumnFilter.cs" />
+    <Compile Include="TableCreator\ExpressionHelper.cs" />
+    <Compile Include="TableCreator\ITableBuilder.cs" />
+    <Compile Include="TableCreator\TableBuilder.cs" />
+    <Compile Include="TableCreator\TableBuilderGeneric.cs" />
+    <Compile Include="TableCreator\TableColumn.cs" />
+    <Compile Include="TableCreator\TableColumnDefinition.cs" />
+    <Compile Include="TableCreator\TableColumnFilterStrategy.cs" />
+    <Compile Include="TableCreator\TableColumnIdentifier.cs" />
+    <Compile Include="TableCreator\TableColumnType.cs" />
+    <Compile Include="TableCreator\TableInput.cs" />
+    <Compile Include="TableCreator\TableOutput.cs" />
+    <Compile Include="TableCreator\TableRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Interfaces\WhatIs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
