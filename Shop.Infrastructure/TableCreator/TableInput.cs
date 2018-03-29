@@ -2,8 +2,8 @@
 
 namespace Shop.Infrastructure.TableCreator
 {
-    using System.Collections.Generic;
     using ColumnFilter;
+    using System.Collections.Generic;
 
     public class TableInput
     {
@@ -18,7 +18,7 @@ namespace Shop.Infrastructure.TableCreator
         public bool? SortDirectionAsc { get; set; }
 
         public int PageSize { get; set; }
-        
+
         public int PageNumber { get; set; }
 
         public override string ToString()

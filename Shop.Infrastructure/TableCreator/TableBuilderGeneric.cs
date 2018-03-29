@@ -13,7 +13,7 @@ namespace Shop.Infrastructure.TableCreator
         protected delegate ITableColumn<T> InitializeColumnFilterFunction(ITableColumn<T> column);
 
         protected delegate ITableColumn<T> InitializeColumnSortFunction(ITableColumn<T> column);
-                
+
         public override TableOutput Build()
         {
             //// Setup initial variables for processing
@@ -79,7 +79,7 @@ namespace Shop.Infrastructure.TableCreator
         protected abstract IQueryable<T> GetItemsQueryBaseOnCategory(IQueryable<T> items);
 
         protected abstract Dictionary<Type, InitializeColumnSortFunction> InitializeColumnSort();
-        
+
         protected abstract Dictionary<Type, InitializeColumnFilterFunction> InitializeColumnFilters();
 
         protected abstract IEnumerable<ITableColumn<T>> GetInitialColumns(List<ITableColumn<T>> allColumnsAvailable);
@@ -133,7 +133,7 @@ namespace Shop.Infrastructure.TableCreator
             return items
                 //.Where(offer => displayOfferIds.Contains(offer.Id)) // This will lose the sort order...
                 .ToList();
-                //.OrderBy(offer => displayOfferIds.IndexOf(offer.Id)); // ... so we have to re-apply it!
+            //.OrderBy(offer => displayOfferIds.IndexOf(offer.Id)); // ... so we have to re-apply it!
         }
 
         private IEnumerable<ITableColumn<T>> GetDisplayColumnRequested(IEnumerable<TableColumnIdentifier> columnIdentifiersRequested)
@@ -142,5 +142,5 @@ namespace Shop.Infrastructure.TableCreator
                 .Select(id => _allItemsColumnsAvailableForCategory
                     .First(allCol => allCol.Identifier.Equals(id)));
         }
-    }    
+    }
 }

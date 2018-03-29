@@ -6,6 +6,7 @@ namespace Shop.Pages.MyOrder
     {
         public IEnumerable<Shop.Order.Order> ProcessedOrders { get; }
         public Shop.Order.Order CurrentOrders { get; }
+
         public MyOrderIndexViewModel(IEnumerable<Shop.Order.Order> processedOrders, Shop.Order.Order currentOrders)
         {
             ProcessedOrders = processedOrders;

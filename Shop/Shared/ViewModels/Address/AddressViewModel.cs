@@ -9,6 +9,7 @@ namespace Shop.Shared.Models.ViewModels
         public string PostCode { get; }
         public string StreetNumber { get; }
         public string Unit { get; }
+
         public AddressViewModel(Address address)
         {
             Street = address.Street;

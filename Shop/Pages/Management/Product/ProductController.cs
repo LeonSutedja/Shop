@@ -1,9 +1,8 @@
-﻿using System.Web.Mvc;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Repository;
 using Shop.Shared.Controllers;
-using System;
 using Shop.Shared.Models.CommandHandler;
+using System.Web.Mvc;
 
 namespace Shop.Pages.Management.Product
 {
@@ -12,7 +11,7 @@ namespace Shop.Pages.Management.Product
         private readonly IRepository<Infrastructure.Product.Product> _productRepository;
         private readonly ICommandHandlerFactory _commandHandlerFactory;
 
-        public ProductController(IRepository<Customer> customerRepository, 
+        public ProductController(IRepository<Customer> customerRepository,
             IRepository<Infrastructure.Product.Product> productRepository,
             ICommandHandlerFactory commandHandlerFactory) : base(customerRepository)
         {

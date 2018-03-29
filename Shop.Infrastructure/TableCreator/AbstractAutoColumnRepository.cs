@@ -1,13 +1,12 @@
 ﻿using Shop.Infrastructure.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Shop.Infrastructure.TableCreator
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using System.Text.RegularExpressions;
-
     public interface ITableColumnRepository<T>
     {
         IList<ITableColumn<T>> GetAllViewColumns();
@@ -24,7 +23,7 @@ namespace Shop.Infrastructure.TableCreator
             var columnList = new List<ITableColumn<T>>();
             var characteristicDefinitionType = typeof(T);
             var listInjectedName = injectedTableColumns.Select(col => col.Identifier.AdditionalData).ToList();
-            
+
             var properties = characteristicDefinitionType.GetProperties();
 
             // exclude properties
@@ -74,12 +73,12 @@ namespace Shop.Infrastructure.TableCreator
             allPropertyColumns.AddRange(columnList);
             _propertyColumns = allPropertyColumns;
         }
-        
+
         public IList<ITableColumn<T>> GetAllViewColumns()
         {
             return _propertyColumns.ToList();
         }
-        
+
         public ITableColumn<T> GetColumn(TableColumnIdentifier identifier)
         {
             return _propertyColumns.First(col => col.Identifier.Equals(identifier));

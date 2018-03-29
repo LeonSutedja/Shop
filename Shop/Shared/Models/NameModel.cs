@@ -12,6 +12,7 @@ namespace Shop.Shared.Models
 
         public string FirstName { get; }
         public string LastName { get; }
+
         private NameModel(string firstName, string lastName)
         {
             if (!string.IsNullOrEmpty(firstName)) FirstName = firstName;

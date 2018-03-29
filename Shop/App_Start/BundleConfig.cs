@@ -42,7 +42,6 @@ namespace Shop
                       "~/Content/themes/base/theme.css",
                       "~/Content/site.css"
                       ));
-            
         }
     }
 }

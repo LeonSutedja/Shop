@@ -1,17 +1,18 @@
-﻿using System;
-using Shop.Infrastructure.Repository;
+﻿using Shop.Infrastructure.Repository;
+using System;
 
 namespace Shop.Infrastructure.Customer
 {
     public class Customer : AbstractId
     {
-        public static Customer Create(string firstName, string lastName, DateTime dateOfBirth, 
+        public static Customer Create(string firstName, string lastName, DateTime dateOfBirth,
             string street, string streetNumber, string unit, string suburb, string postcode)
         {
             var customerHomeAddress = new Address(street, streetNumber, unit, suburb, postcode);
             var newCustomer = new Customer(firstName, lastName, dateOfBirth, customerHomeAddress);
             return newCustomer;
         }
+
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
@@ -32,6 +33,7 @@ namespace Shop.Infrastructure.Customer
         }
 
         public void SetDateOfBirth(DateTime dateOfBirth) => DateOfBirth = dateOfBirth;
+
         public void SetAddress(Address newAddress) => HomeAddress = newAddress;
     }
 }

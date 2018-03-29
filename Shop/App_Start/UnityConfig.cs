@@ -1,12 +1,12 @@
-using System;
 using Microsoft.Practices.Unity;
 using Shop.Infrastructure.Customer;
-using Shop.Order;
-using Shop.Infrastructure.Product;
-using System.Linq;
-using Shop.Shared.Models.CommandHandler;
 using Shop.Infrastructure.Interfaces;
+using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
+using Shop.Order;
+using Shop.Shared.Models.CommandHandler;
+using System;
+using System.Linq;
 
 namespace Shop.App_Start
 {
@@ -16,6 +16,7 @@ namespace Shop.App_Start
     public class UnityConfig
     {
         #region Unity Container
+
         private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
         {
             var container = new UnityContainer();
@@ -30,11 +31,12 @@ namespace Shop.App_Start
         {
             return container.Value;
         }
-        #endregion
+
+        #endregion Unity Container
 
         /// <summary>Registers the type mappings with the Unity container.</summary>
         /// <param name="container">The unity container to configure.</param>
-        /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to 
+        /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
@@ -54,14 +56,13 @@ namespace Shop.App_Start
 
             // Map Shop.Order
             container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
-            
+
             // Handlers
             container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>(new ContainerControlledLifetimeManager());
             container.RegisterTypes(AllClasses.FromLoadedAssemblies()
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
-                i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>))), WithMappings.FromAllInterfaces, 
+                i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>))), WithMappings.FromAllInterfaces,
                 WithName.Default, WithLifetime.ContainerControlled);
-
         }
     }
 }

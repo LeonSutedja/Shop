@@ -7,6 +7,7 @@ namespace Shop.Infrastructure.Customer
     public class CustomerService : ICustomerService
     {
         private readonly IRepository<Customer> _customerRepository;
+
         public CustomerService(IRepository<Customer> customerRepository)
         {
             _customerRepository = customerRepository;

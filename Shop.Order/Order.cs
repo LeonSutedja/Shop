@@ -1,16 +1,18 @@
 ﻿using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Product;
+using Shop.Infrastructure.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Infrastructure.Repository;
 
 namespace Shop.Order
-{  
+{
     public interface IOrder
     {
-        List<IOrderItem>  ProductsOrdered { get; }
+        List<IOrderItem> ProductsOrdered { get; }
         Customer CustomerWhoOrdered { get; }
+
         void AddProduct(IProduct product, int qtyOrdered);
+
         void RemoveProduct(IProduct productOrdered, int qtyOrdered);
     }
 
@@ -20,13 +22,15 @@ namespace Shop.Order
         public Customer CustomerWhoOrdered { get; }
         public int TotalQuantityOrdered { get; private set; }
 
-        public Order(Customer customerWhoOrdered) {
+        public Order(Customer customerWhoOrdered)
+        {
             ProductsOrdered = new List<IOrderItem>();
             CustomerWhoOrdered = customerWhoOrdered;
             TotalQuantityOrdered = 0;
         }
 
-        public Order(Customer customerWhoOrdered, IProduct productOrdered, int qtyOrdered) {
+        public Order(Customer customerWhoOrdered, IProduct productOrdered, int qtyOrdered)
+        {
             ProductsOrdered = new List<IOrderItem>() { new OrderItem(productOrdered, qtyOrdered) };
             CustomerWhoOrdered = customerWhoOrdered;
             TotalQuantityOrdered += qtyOrdered;

@@ -1,12 +1,12 @@
 ﻿using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
-using System;
 
 namespace Shop.Infrastructure.Product
 {
     public class ProductService : IProductService
     {
         private readonly IRepository<Product> _productRepository;
+
         public ProductService(IRepository<Product> productRepository)
         {
             _productRepository = productRepository;

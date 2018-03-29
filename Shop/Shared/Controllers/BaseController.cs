@@ -1,6 +1,6 @@
 ﻿using Shop.Infrastructure.Customer;
-using System.Web.Mvc;
 using Shop.Infrastructure.Repository;
+using System.Web.Mvc;
 
 namespace Shop.Shared.Controllers
 {
@@ -8,6 +8,7 @@ namespace Shop.Shared.Controllers
     {
         protected readonly Customer CurrentUser;
         protected readonly IRepository<Customer> _customerRepository;
+
         protected BaseController(IRepository<Customer> customerRepository)
         {
             _customerRepository = customerRepository;

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop.Order
 {
@@ -30,7 +30,7 @@ namespace Shop.Order
             _orderRepository.Add((Order)order);
         }
 
-        public IEnumerable<Order> GetProcessedCustomerOrders(Customer customer) => 
+        public IEnumerable<Order> GetProcessedCustomerOrders(Customer customer) =>
             _orderRepository.All().Where(order => order.CustomerWhoOrdered.Id == customer.Id);
     }
 }

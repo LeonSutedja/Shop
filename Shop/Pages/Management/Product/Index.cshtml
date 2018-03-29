@@ -20,7 +20,6 @@
                         <div id="product-details-@product.Id">
                             <strong>@product.Name</strong><br />
                             @product.Description
-                           
                         </div>
                         <div id="product-details-editor-@product.Id" style="display:none">
                             @using (Html.BeginForm("UpdateProduct", "Product"))
@@ -29,7 +28,7 @@
                                 <div class="form-group">
                                     <input name="name" placeholder="Name" class="form-control" type="text" value="@product.Name" />
                                 </div>
-                                <div class="form-group">                                    
+                                <div class="form-group">
                                     <input name="description" placeholder="Description" class="form-control" type="text" value="@product.Description" />
                                 </div>
                                 <a class="btn btn-default" onclick="cancelDetailsEditorBtn(@product.Id);">Cancel</a>
@@ -41,7 +40,7 @@
                         <button class="btn btn-default" onclick="editDetailsBtn(@product.Id)">Edit</button>
                     </td>
                 </tr>
-            }            
+            }
         </table>
         <script>
                 function editDetailsBtn(id) {
@@ -53,6 +52,6 @@
                     $("#product-details-editor-" + id).hide();
                     return false;
                 }
-        </script>       
+        </script>
     </div>
 </div>

@@ -21,7 +21,7 @@ namespace Shop.Infrastructure.TableCreator
         public override bool Equals(object obj)
         {
             var idObj = obj as TableColumnIdentifier;
-            if (idObj == null) 
+            if (idObj == null)
             {
                 return false;
             }

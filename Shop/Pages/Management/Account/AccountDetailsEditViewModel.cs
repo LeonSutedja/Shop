@@ -11,12 +11,15 @@ namespace Shop.Pages.Management.Account
         public string LastName { get; set; }
         public string Dob { get; set; }
 
-        public AccountDetailsEditViewModel() { }
+        public AccountDetailsEditViewModel()
+        {
+        }
     }
 
     public class AccountDetailsEditViewModelHandler : ICommandHandler<AccountDetailsEditViewModel, bool>
     {
         private readonly ICustomerService _customerService;
+
         public AccountDetailsEditViewModelHandler(ICustomerService customerService)
         {
             _customerService = customerService;

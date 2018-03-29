@@ -1,17 +1,20 @@
-﻿using System.Web;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
 using Shop.Session.SessionEntity;
+using System.Web;
 
 namespace Shop.Session
 {
     internal abstract class Session<T> : ISession<T>
     {
         protected abstract string _suffixSessionName { get; }
+
         protected abstract T _newEntity();
 
         private string _getSessionName(Customer currentUser) => currentUser.Id + _suffixSessionName;
+
         protected HttpContextBase _context { get; }
         protected Customer _currentUser { get; }
+
         protected Session(HttpContextBase context, Customer currentUser)
         {
             _context = context;
@@ -34,14 +37,14 @@ namespace Shop.Session
                 _context.Session.Remove(sessionName);
             _context.Session.Add(sessionName, newEntity);
         }
-    } 
+    }
 
     /// <summary>
     /// This application should only use this to access the sessions.
     /// </summary>
     internal static class SessionFacade
     {
-        public static ISession<Order.Order> CurrentCustomerOrder(HttpContextBase context, Customer currentCustomer) 
+        public static ISession<Order.Order> CurrentCustomerOrder(HttpContextBase context, Customer currentCustomer)
             => new CurrentCustomerOrder(context, currentCustomer);
     }
 }

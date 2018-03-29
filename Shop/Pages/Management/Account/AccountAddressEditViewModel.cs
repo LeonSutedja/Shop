@@ -12,12 +12,15 @@ namespace Shop.Pages.Management.Account
         public string suburb { get; set; }
         public string postcode { get; set; }
 
-        public AccountAddressEditViewModel() { }
+        public AccountAddressEditViewModel()
+        {
+        }
     }
 
     public class AccountAddressEditViewModelHandler : ICommandHandler<AccountAddressEditViewModel, bool>
     {
         private readonly ICustomerService _customerService;
+
         public AccountAddressEditViewModelHandler(ICustomerService customerService)
         {
             _customerService = customerService;

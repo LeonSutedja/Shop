@@ -24,12 +24,16 @@
             {
                 case FilterFreeTextType.Contains:
                     return (stringValue) => stringValue.Contains(stringToCheck);
+
                 case FilterFreeTextType.Equals:
                     return (stringValue) => stringValue == stringToCheck;
+
                 case FilterFreeTextType.StartsWith:
                     return (stringValue) => stringValue.StartsWith(stringToCheck);
+
                 case FilterFreeTextType.EndsWith:
                     return (stringValue) => stringValue.EndsWith(stringToCheck);
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

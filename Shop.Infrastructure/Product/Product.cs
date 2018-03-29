@@ -1,5 +1,5 @@
-﻿using System;
-using Shop.Infrastructure.Repository;
+﻿using Shop.Infrastructure.Repository;
+using System;
 
 namespace Shop.Infrastructure.Product
 {
@@ -7,7 +7,9 @@ namespace Shop.Infrastructure.Product
     {
         string Name { get; }
         string Description { get; }
+
         void AddStock(int qty);
+
         void RemoveStock(int qty);
     }
 
@@ -26,6 +28,7 @@ namespace Shop.Infrastructure.Product
         }
 
         public void AddStock(int qty) => StockQuantity += qty;
+
         public void RemoveStock(int qty)
         {
             if (qty > StockQuantity) throw new Exception("Not enough stock");
@@ -33,6 +36,7 @@ namespace Shop.Infrastructure.Product
         }
 
         public void SetDescription(string updatedDescription) => Description = updatedDescription;
+
         public void SetName(string newName) => Name = newName;
     }
 }

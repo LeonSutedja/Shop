@@ -26,11 +26,13 @@ namespace Shop.Infrastructure.TableCreator.ColumnFilter
             {
                 case FlagFilterType.TrueOnly:
                     return (val) => val;
+
                 case FlagFilterType.FalseOnly:
                     return (val) => !val;
+
                 default:
                     return (val) => true;
             }
         }
-    }    
+    }
 }

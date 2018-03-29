@@ -1,10 +1,10 @@
-﻿using System.Web.Mvc;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
+using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
 using Shop.Order;
 using Shop.Session;
 using Shop.Shared.Controllers;
-using Shop.Infrastructure.Product;
+using System.Web.Mvc;
 
 namespace Shop.Pages.MyOrder
 {

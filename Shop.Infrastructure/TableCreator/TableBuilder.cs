@@ -17,7 +17,7 @@
         protected TableColumnIdentifier SortByValue { get; private set; }
 
         protected List<TableColumnIdentifier> ColumnIdsRequestedValue { get; private set; }
-        
+
         public ITableBuilder<T> PageSize(int pageSize)
         {
             PageSizeValue = pageSize;
@@ -59,7 +59,7 @@
             this.ColumnFilters = columnFilters;
             return this;
         }
-        
+
         public abstract TableOutput Build();
     }
 }

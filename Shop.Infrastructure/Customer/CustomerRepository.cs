@@ -1,5 +1,5 @@
-﻿using System;
-using Shop.Infrastructure.Repository;
+﻿using Shop.Infrastructure.Repository;
+using System;
 
 namespace Shop.Infrastructure.Customer
 {

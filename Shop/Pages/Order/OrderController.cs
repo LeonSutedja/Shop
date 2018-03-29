@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
+using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
 using Shop.Session;
 using Shop.Shared.Controllers;
-using Shop.Infrastructure.Product;
+using System.Web.Mvc;
 
 namespace Shop.Pages.Order
 {
@@ -11,7 +11,7 @@ namespace Shop.Pages.Order
     {
         private readonly IRepository<Product> _productRepository;
 
-        public OrderController(IRepository<Customer> customerRepository, 
+        public OrderController(IRepository<Customer> customerRepository,
             IRepository<Product> productRepository) : base(customerRepository)
         {
             _productRepository = productRepository;
@@ -45,7 +45,7 @@ namespace Shop.Pages.Order
 
             // Check for enough stock.
             if (currentOrderItem != null)
-                if ((currentOrderItem.QtyOrdered+1) > productOrdered.StockQuantity) return false;
+                if ((currentOrderItem.QtyOrdered + 1) > productOrdered.StockQuantity) return false;
             if (!(productOrdered.StockQuantity > 0)) return false;
 
             // Add the product

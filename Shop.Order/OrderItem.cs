@@ -6,7 +6,9 @@ namespace Shop.Order
     {
         IProduct ProductOrdered { get; }
         int QtyOrdered { get; }
+
         void AddQuantity(int qtyOrdered);
+
         void RemoveQuantity(int qtyOrdered);
     }
 
@@ -14,6 +16,7 @@ namespace Shop.Order
     {
         public IProduct ProductOrdered { get; }
         public int QtyOrdered { get; private set; }
+
         public OrderItem(IProduct productOrdered, int qtyOrdered = 1)
         {
             ProductOrdered = productOrdered;
@@ -21,9 +24,10 @@ namespace Shop.Order
         }
 
         public void AddQuantity(int qty) => QtyOrdered += qty;
+
         public void RemoveQuantity(int qty)
         {
             if (QtyOrdered >= qty) QtyOrdered -= qty;
-        } 
+        }
     }
 }

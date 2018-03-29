@@ -28,13 +28,13 @@
                     var productOrdered = order.ProductsOrdered.FirstOrDefault(po => po.ProductOrdered.Id == product.Id);
                     <tr>
                         <td>
-                            <strong>@product.Name</strong><br/>
+                            <strong>@product.Name</strong><br />
                             <span class="text-muted">@product.Description</span><br />
                             <strong>Stock Available:</strong>
                             <span class="text-muted">@product.StockQuantity</span>
                         </td>
                         <td>
-                            <a class="btn btn-default" onclick="addOrderItem(@product.Id);">Add to Cart</a>                            
+                            <a class="btn btn-default" onclick="addOrderItem(@product.Id);">Add to Cart</a>
                         </td>
                     </tr>
                 }

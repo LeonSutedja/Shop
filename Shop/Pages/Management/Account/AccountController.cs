@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
+using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Shared.Controllers;
 using Shop.Shared.Models.CommandHandler;
-using Shop.Infrastructure.Interfaces;
+using System.Web.Mvc;
 
 namespace Shop.Pages.Management.Account
 {
@@ -12,7 +12,7 @@ namespace Shop.Pages.Management.Account
         private readonly ICustomerService _customerService;
         private readonly ICommandHandlerFactory _commandHandlerFactory;
 
-        public AccountController(IRepository<Customer> customerRepository, 
+        public AccountController(IRepository<Customer> customerRepository,
             ICustomerService customerService, ICommandHandlerFactory commandHandlerFactory) : base(customerRepository)
         {
             _customerService = customerService;

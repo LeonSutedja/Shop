@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     var order = (Shop.Order.Order)ViewBag.Order;
 }
 @if (order.ProductsOrdered.Any())
@@ -29,14 +29,14 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         function clearOrder() {
             $.ajax({
                 type: "POST",
                 url: '@Url.Action("ClearOrder", "ShoppingCartDialog")',
                 datatype: "json",
-                traditional: true,                
+                traditional: true,
                 success: function (data) {
                     if (data.success) {
                         location.reload();
