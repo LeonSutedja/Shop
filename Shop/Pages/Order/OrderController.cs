@@ -4,21 +4,17 @@ using Shop.Infrastructure.Repository;
 using Shop.Session;
 using Shop.Shared.Controllers;
 using System.Web.Mvc;
-using Shop.Order;
 
 namespace Shop.Pages.Order
 {
     public class OrderController : BaseController
     {
-        private readonly IOrderService _orderService;
         private readonly IRepository<Product> _productRepository;
 
         public OrderController(
-            IOrderService orderService,
             IRepository<Customer> customerRepository,
             IRepository<Product> productRepository) : base(customerRepository)
         {
-            _orderService = orderService;
             _productRepository = productRepository;
         }
 
