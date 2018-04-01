@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Shop.Infrastructure.Product.Product>
+﻿@model Shop.Infrastructure.TableCreator.TableOutput
 @{
     ViewBag.Title = "Product Management";
     Layout = "~/Shared/Views/_Layout.cshtml";
@@ -13,31 +13,31 @@
 <div class="row">
     <div class="col-md-12">
         <table class="table table-hover">
-            @foreach (var product in Model)
+            @foreach (var row in Model.Rows)
             {
                 <tr>
                     <td>
-                        <div id="product-details-@product.Id">
-                            <strong>@product.Name</strong><br />
-                            @product.Description
+                        <div id="product-details-@row.Id">
+                            <strong>@row.Cells[0]</strong><br/>
+                            @row.Cells[1]
                         </div>
-                        <div id="product-details-editor-@product.Id" style="display:none">
+                        <div id="product-details-editor-@row.Id" style="display: none">
                             @using (Html.BeginForm("UpdateProduct", "Product"))
                             {
-                                <input name="id" type="hidden" value="@product.Id" />
+                                <input name="id" type="hidden" value="@row.Id"/>
                                 <div class="form-group">
-                                    <input name="name" placeholder="Name" class="form-control" type="text" value="@product.Name" />
+                                    <input name="name" placeholder="Name" class="form-control" type="text" value="@row.Cells[0]"/>
                                 </div>
                                 <div class="form-group">
-                                    <input name="description" placeholder="Description" class="form-control" type="text" value="@product.Description" />
+                                    <input name="description" placeholder="Description" class="form-control" type="text" value="@row.Cells[1]"/>
                                 </div>
-                                <a class="btn btn-default" onclick="cancelDetailsEditorBtn(@product.Id);">Cancel</a>
+                                <a class="btn btn-default" onclick="cancelDetailsEditorBtn(@row.Id);">Cancel</a>
                                 <button class="btn btn-primary">Save</button>
                             }
                         </div>
                     </td>
                     <td>
-                        <button class="btn btn-default" onclick="editDetailsBtn(@product.Id)">Edit</button>
+                        <button class="btn btn-default" onclick="editDetailsBtn(@row.Id)">Edit</button>
                     </td>
                 </tr>
             }

@@ -85,9 +85,9 @@ namespace Shop.Infrastructure.TableCreator
 
         protected abstract IEnumerable<ITableColumn<T>> GetInitialColumns(List<ITableColumn<T>> allColumnsAvailable);
 
-        private IQueryable<T> ProcessFilter(IQueryable<T> productOffers, ColumnFilter.TableColumnFilter TableColumnFilter)
+        private IQueryable<T> ProcessFilter(IQueryable<T> productOffers, ColumnFilter.TableColumnFilter tableColumnFilter)
         {
-            var offerViewColumn = _allItemsColumnsAvailableForCategory.First(column => column.Identifier.Equals(TableColumnFilter.ColumnIdentifier));
+            var offerViewColumn = _allItemsColumnsAvailableForCategory.First(column => column.Identifier.Equals(tableColumnFilter.ColumnIdentifier));
 
             var initializeColumnFilters = InitializeColumnFilters();
             if (initializeColumnFilters.ContainsKey(offerViewColumn.GetType()))
@@ -95,7 +95,7 @@ namespace Shop.Infrastructure.TableCreator
                 offerViewColumn = initializeColumnFilters[offerViewColumn.GetType()](offerViewColumn);
             }
 
-            return offerViewColumn.ApplyFilter(productOffers, TableColumnFilter);
+            return offerViewColumn.ApplyFilter(productOffers, tableColumnFilter);
         }
 
         private IEnumerable<T> ProcessSortAndPagination(IQueryable<T> items)

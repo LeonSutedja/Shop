@@ -20,20 +20,22 @@ namespace Shop.Infrastructure.Product
 
         public TableOutput GetProducts()
         {
-            return _productTableBuilder.PageNumber(1).PageSize(10).IsSortAscending(true).Build();
+            return _productTableBuilder
+                .PageNumber(1)
+                .PageSize(10)
+                .IsSortAscending(true).Build();
         }
 
         public bool UpdateProductDetails(int productId, string name, string description)
         {
-            Product product;
-            if (!tryGetProduct(productId, out product)) return false;
+            if (!_tryGetProduct(productId, out var product)) return false;
             product = _productRepository.Get(productId);
             product.SetName(name);
             product.SetDescription(description);
             return true;
         }
 
-        private bool tryGetProduct(int productId, out Product productResult)
+        private bool _tryGetProduct(int productId, out Product productResult)
         {
             productResult = null;
             var productToGet = _productRepository.Get(productId);
@@ -43,19 +45,19 @@ namespace Shop.Infrastructure.Product
         }
     }
 
-    public class OrderAutoColumnRepository : AbstractAutoColumnRepository<Product>
+    public class ProductAutoColumnRepository : AbstractAutoColumnRepository<Product>
     {
-        public OrderAutoColumnRepository(IEnumerable<ITableColumn> injectedTableColumns) : base(injectedTableColumns)
+        public ProductAutoColumnRepository(IEnumerable<ITableColumn> injectedTableColumns) : base(injectedTableColumns)
         {
         }
     }
 
-    public class OrderTableBuilder : TableBuilderGeneric<Product>
+    public class ProductTableBuilder : TableBuilderGeneric<Product>
     {
         private readonly IRepository<Product> _productRepository;
         private readonly ITableColumnRepository<Product> _tableColumnRepository;
 
-        public OrderTableBuilder(IRepository<Product> productRepository, ITableColumnRepository<Product> tableColumnRepository)
+        public ProductTableBuilder(IRepository<Product> productRepository, ITableColumnRepository<Product> tableColumnRepository)
         {
             _productRepository = productRepository;
             _tableColumnRepository = tableColumnRepository;

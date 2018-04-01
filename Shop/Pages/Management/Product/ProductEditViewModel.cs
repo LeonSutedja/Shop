@@ -1,12 +1,18 @@
 ﻿using Shop.Infrastructure.Interfaces;
 using Shop.Shared.Models.CommandHandler;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Pages.Management.Product
 {
     public class ProductEditViewModel
     {
+        [Required]
         public int id { get; set; }
+
+        [Required]
         public string name { get; set; }
+
+        [Required]
         public string description { get; set; }
 
         public ProductEditViewModel()

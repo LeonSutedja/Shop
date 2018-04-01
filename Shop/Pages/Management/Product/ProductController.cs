@@ -31,7 +31,7 @@ namespace Shop.Pages.Management.Product
         public ActionResult Index()
         {
             var tableOutput = _productService.GetProducts();
-            return View(_productRepository.All());
+            return View(tableOutput);
         } 
 
         [HttpPost]
