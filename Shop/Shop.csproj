@@ -171,6 +171,7 @@
     <Compile Include="Pages\Management\Account\AccountAddressEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountDetailsEditViewModel.cs" />
     <Compile Include="Pages\Management\Account\AccountIndexViewModel.cs" />
+    <Compile Include="Pages\Management\Product\ProductAddViewModel.cs" />
     <Compile Include="Pages\Management\Product\ProductEditViewModel.cs" />
     <Compile Include="Pages\Management\Product\ProductController.cs" />
     <Compile Include="Pages\MyOrder\MyOrderController.cs" />

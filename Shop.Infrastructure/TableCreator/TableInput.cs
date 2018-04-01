@@ -7,8 +7,6 @@ namespace Shop.Infrastructure.TableCreator
 
     public class TableInput
     {
-        public int ProductCategoryId { get; set; }
-
         public List<TableColumnFilter> Filters { get; set; }
 
         public List<TableColumnIdentifier> ColumnsRequested { get; set; }
@@ -24,7 +22,6 @@ namespace Shop.Infrastructure.TableCreator
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Product Category Id: " + ProductCategoryId);
             stringBuilder.AppendLine("Page Size: " + PageSize);
             stringBuilder.AppendLine("Page Number: " + PageNumber);
             stringBuilder.AppendLine("Sort By: " + SortBy);
