@@ -3,9 +3,11 @@ using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
+using Shop.Infrastructure.TableCreator;
 using Shop.Order;
 using Shop.Shared.Models.CommandHandler;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Shop.App_Start
@@ -63,6 +65,27 @@ namespace Shop.App_Start
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
                 i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>))), WithMappings.FromAllInterfaces,
                 WithName.Default, WithLifetime.ContainerControlled);
+
+            // TableCreator
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
+                    .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                                                           i.GetGenericTypeDefinition() == typeof(ITableColumnRepository<>))), 
+                WithMappings.FromAllInterfaces,
+                WithName.Default, WithLifetime.PerThread);
+
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
+                    .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                                                           i.GetGenericTypeDefinition() == typeof(ITableColumn<>))),
+                WithMappings.FromAllInterfaces,
+                WithName.Default, WithLifetime.PerThread);
+
+            container.RegisterType(typeof(IEnumerable<ITableColumn>), typeof(ITableColumn[]));
+
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
+                    .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                                                           i.GetGenericTypeDefinition() == typeof(ITableBuilder<>))),
+                WithMappings.FromAllInterfaces,
+                WithName.Default, WithLifetime.PerThread);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Shop.Infrastructure.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,8 +19,10 @@ namespace Shop.Infrastructure.TableCreator
     {
         private readonly IEnumerable<ITableColumn<T>> _propertyColumns;
 
-        protected AbstractAutoColumnRepository(IEnumerable<ITableColumn<T>> injectedTableColumns)
+        protected AbstractAutoColumnRepository(IEnumerable<ITableColumn> injectedTableColumns)
         {
+            var injectedTableColumns1 = injectedTableColumns.ToList();
+            var newInjectedTableColumns = new List<ITableColumn<T>>();
             var columnList = new List<ITableColumn<T>>();
             var characteristicDefinitionType = typeof(T);
             var listInjectedName = injectedTableColumns.Select(col => col.Identifier.AdditionalData).ToList();
@@ -69,7 +72,7 @@ namespace Shop.Infrastructure.TableCreator
                 }
             }
 
-            var allPropertyColumns = injectedTableColumns.Where(col => col.Identifier.ColumnType == TableColumnType.Property && col.Title != "EXCLUDE").ToList();
+            var allPropertyColumns = newInjectedTableColumns.Where(col => col.Identifier.ColumnType == TableColumnType.Property && col.Title != "EXCLUDE").ToList();
             allPropertyColumns.AddRange(columnList);
             _propertyColumns = allPropertyColumns;
         }

@@ -1,11 +1,12 @@
 ﻿using System;
+using Shop.Infrastructure.Repository;
 
 namespace Shop.Infrastructure.TableCreator
 {
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class TableBuilderGeneric<T> : TableBuilder<T>
+    public abstract class TableBuilderGeneric<T> : TableBuilder<T> where T : IId
     {
         // Initial Variables for Processing
         private List<ITableColumn<T>> _allItemsColumnsAvailableForCategory;
@@ -101,12 +102,12 @@ namespace Shop.Infrastructure.TableCreator
         {
             if (SortByValue == null)
             {
-                //*** Contains Id, require to re-factor ***/
-                //return items
-                //   .OrderBy(offer => offer.Id)
-                //   .Skip((PageNumberValue - 1) * PageSizeValue)
-                //   .Take(PageSizeValue)
-                //   .ToList();
+                //***Contains Id, require to re - factor * **/
+                return items
+                   .OrderBy(offer => offer.Id)
+                   .Skip((PageNumberValue - 1) * PageSizeValue)
+                   .Take(PageSizeValue)
+                   .ToList();
             }
 
             var sortByColumn = _allItemsColumnsAvailableForCategory.First(cd => cd.Identifier.Equals(SortByValue));

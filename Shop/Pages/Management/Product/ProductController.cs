@@ -3,18 +3,23 @@ using Shop.Infrastructure.Repository;
 using Shop.Shared.Controllers;
 using Shop.Shared.Models.CommandHandler;
 using System.Web.Mvc;
+using Shop.Infrastructure.Interfaces;
 
 namespace Shop.Pages.Management.Product
 {
     public class ProductController : BaseController
     {
         private readonly IRepository<Infrastructure.Product.Product> _productRepository;
+        private readonly IProductService _productService;
         private readonly ICommandHandlerFactory _commandHandlerFactory;
 
-        public ProductController(IRepository<Customer> customerRepository,
+        public ProductController(
+            IProductService productService,
+            IRepository<Customer> customerRepository,
             IRepository<Infrastructure.Product.Product> productRepository,
             ICommandHandlerFactory commandHandlerFactory) : base(customerRepository)
         {
+            _productService = productService;
             _commandHandlerFactory = commandHandlerFactory;
             _productRepository = productRepository;
         }
@@ -23,7 +28,11 @@ namespace Shop.Pages.Management.Product
         /// Landing Page
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index() => View(_productRepository.All());
+        public ActionResult Index()
+        {
+            var tableOutput = _productService.GetProducts();
+            return View(_productRepository.All());
+        } 
 
         [HttpPost]
         public ActionResult UpdateProduct(ProductEditViewModel viewModel)
