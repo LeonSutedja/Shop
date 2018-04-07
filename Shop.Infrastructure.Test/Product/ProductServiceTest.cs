@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
+using Shop.Infrastructure.TableCreator;
 using Shouldly;
 using Unity;
 using Xunit;
@@ -51,6 +52,41 @@ namespace Shop.Infrastructure.Test.Product
             success.ShouldBeTrue();
             var productAfterUpdate = _productRepository.Get(firstProductId);
             productAfterUpdate.StockQuantity.ShouldBe(firstProductStock + numberStockToAdd);
+        }
+
+        [Fact]
+        public void AddProduct_Should_AddProductToRepository()
+        {
+            var newProductName = "ProductName 123";
+            var newProductDescription = "Test Product To Be Adde";
+
+            var success = _productService.AddProduct(newProductName, newProductDescription);
+
+            success.ShouldBeTrue();
+
+            var productAfterUpdate = _productRepository.All().First(product => product.Name == newProductName);
+            productAfterUpdate.ShouldNotBeNull();
+            productAfterUpdate.Name.ShouldBe(newProductName);
+            productAfterUpdate.Description.ShouldBe(newProductDescription);
+        }
+
+        [Fact]
+        public void GetProducts_Should_GetProductsTableOutput()
+        {
+            var pageNumber = 1;
+            var pageSize = 10;
+            var tableInput = new TableInput
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var tableOutput = _productService.GetProducts(tableInput);
+            tableOutput.ShouldNotBeNull();
+            tableOutput.Rows.Count.ShouldBeLessThanOrEqualTo(pageSize);
+            tableOutput.Rows.Count.ShouldBeGreaterThan(0);
+            tableOutput.Columns.Count.ShouldBeGreaterThan(0);
+            tableOutput.TotalProductOffersCount.ShouldBeGreaterThan(0);
         }
     }
 }
