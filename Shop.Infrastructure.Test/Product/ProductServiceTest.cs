@@ -23,12 +23,13 @@ namespace Shop.Infrastructure.Test.Product
             _productRepository = _unityContainer.Resolve<IRepository<Infrastructure.Product.Product>>();
         }
 
-        [Fact]
-        public void UpdateProductDetails_Should_UpdateProductDetails()
+        [Theory]
+        [InlineData("New Product Name", "New Product Description")]
+        [InlineData("1234567890", "1234567890")]
+        [InlineData("~!@#$%^&*()_+-=[]\\{}|';/.,<>?:\"", "~!@#$%^&*()_+-=[]\\{}|';/.,<>?:\"")]
+        public void UpdateProductDetails_Should_UpdateProductDetails(string newProductName, string newProductDescription)
         {
             var firstProductId = _productRepository.All().First().Id;
-            var newProductName = "New Product Name";
-            var newProductDescription = "New Product Description";
 
             var success = _productService.UpdateProductDetails(firstProductId, newProductName, newProductDescription);
 
@@ -38,14 +39,16 @@ namespace Shop.Infrastructure.Test.Product
             productAfterUpdate.Description.ShouldBe(newProductDescription);
         }
 
-        [Fact]
-        public void AddToStock_Should_AddStock()
+        [Theory]
+        [InlineData(5)]
+        [InlineData(10)]
+        [InlineData(2147483600)]
+        [InlineData(2147483647)]
+        public void AddToStock_Should_AddStock(int numberStockToAdd)
         {
             var firstProduct = _productRepository.All().First();
             var firstProductStock = firstProduct.StockQuantity;
             var firstProductId = firstProduct.Id;
-
-            var numberStockToAdd = 10;
 
             var success = _productService.AddToStock(firstProductId, numberStockToAdd);
 
@@ -54,12 +57,29 @@ namespace Shop.Infrastructure.Test.Product
             productAfterUpdate.StockQuantity.ShouldBe(firstProductStock + numberStockToAdd);
         }
 
-        [Fact]
-        public void AddProduct_Should_AddProductToRepository()
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(-10)]
+        [InlineData(-2147483647)]
+        public void AddToStock_ShouldNot_AddNegativeStock(int numberStockToAdd)
         {
-            var newProductName = "ProductName 123";
-            var newProductDescription = "Test Product To Be Adde";
+            var firstProduct = _productRepository.All().First();
+            var firstProductStock = firstProduct.StockQuantity;
+            var firstProductId = firstProduct.Id;
 
+            var success = _productService.AddToStock(firstProductId, numberStockToAdd);
+
+            success.ShouldBeFalse();
+            var productAfterUpdate = _productRepository.Get(firstProductId);
+            productAfterUpdate.StockQuantity.ShouldBe(firstProductStock);
+        }
+
+        [Theory]
+        [InlineData("ProductName 123", "Test Product To Be Added")]
+        [InlineData("1234567890", "1234567890")]
+        [InlineData("~!@#$%^&*()_+-=[]\\{}|';/.,<>?:\"", "~!@#$%^&*()_+-=[]\\{}|';/.,<>?:\"")]
+        public void AddProduct_Should_AddProductToRepository(string newProductName, string newProductDescription)
+        {
             var success = _productService.AddProduct(newProductName, newProductDescription);
 
             success.ShouldBeTrue();

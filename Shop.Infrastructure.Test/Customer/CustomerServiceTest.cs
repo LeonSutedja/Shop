@@ -24,25 +24,27 @@ namespace Shop.Infrastructure.Test.Customer
             _customerRepository = _unityContainer.Resolve<IRepository<Infrastructure.Customer.Customer>>();
         }
 
-        [Fact]
-        public void ChangeCustomerDetails_Should_ChangeDetails()
+        [Theory]
+        [InlineData("ChangeToFirstName", "ChangeToLastName")]
+        [InlineData("ABC1234567890", "ABC1234567890")]
+        [InlineData("1234567890", "1234567890")]
+        [InlineData("~!@#$%^&*()_+-=[]\\{}|';/.,<>?:\"", "~!@#$%^&*()_+-=[]\\{}|';/.,<>?:\"")]
+        public void ChangeCustomerDetails_Should_ChangeDetails(string firstNameToChange, string lastNameToChange)
         {
             var firstCustomer = _customerRepository.All().First();
             var firstCustomerId = firstCustomer.Id;
 
-            var firstNameAfterChange = "ChangeToFirstName";
-            var lastNameAfterChange = "ChangeToLastName";
             var dobAfterChange = DateTime.Now.AddYears(-20);
             var success = _customerService.ChangeCustomerDetails(
                 firstCustomerId,
-                firstNameAfterChange,
-                lastNameAfterChange,
+                firstNameToChange,
+                lastNameToChange,
                 DateTime.Now.AddYears(-20));
 
             success.ShouldBeTrue();
             var firstCustomerAfterChange = _customerRepository.Get(firstCustomerId);
-            firstCustomerAfterChange.FirstName.ShouldBe(firstNameAfterChange);
-            firstCustomerAfterChange.LastName.ShouldBe(lastNameAfterChange);
+            firstCustomerAfterChange.FirstName.ShouldBe(firstNameToChange);
+            firstCustomerAfterChange.LastName.ShouldBe(lastNameToChange);
             firstCustomerAfterChange.DateOfBirth.ShouldBe(dobAfterChange);
         }
 

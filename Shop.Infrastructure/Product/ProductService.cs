@@ -33,8 +33,15 @@ namespace Shop.Infrastructure.Product
         public bool AddToStock(int productId, int quantity)
         {
             if (!_tryGetProduct(productId, out var product)) return false;
-            product.AddStock(quantity);
-            return true;
+            try
+            {
+                product.AddStock(quantity);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public TableOutput GetProducts(TableInput input)

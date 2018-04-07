@@ -7,6 +7,7 @@ namespace Shop.Infrastructure.Product
     {
         string Name { get; }
         string Description { get; }
+        int StockQuantity { get; }
 
         void AddStock(int qty);
 
@@ -27,7 +28,11 @@ namespace Shop.Infrastructure.Product
             Description = description;
         }
 
-        public void AddStock(int qty) => StockQuantity += qty;
+        public void AddStock(int qty)
+        {
+            if (qty <= 0) throw new Exception("Error. Cannot add stock.");
+            StockQuantity += qty;
+        }
 
         public void RemoveStock(int qty)
         {
