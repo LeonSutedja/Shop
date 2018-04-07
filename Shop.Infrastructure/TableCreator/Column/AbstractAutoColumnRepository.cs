@@ -1,20 +1,12 @@
-﻿using Shop.Infrastructure.Repository;
-using Shop.Infrastructure.TableCreator.Column;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Shop.Infrastructure.Repository;
 
-namespace Shop.Infrastructure.TableCreator
+namespace Shop.Infrastructure.TableCreator.Column
 {
-    public interface ITableColumnRepository<T>
-    {
-        IList<ITableColumn<T>> GetAllViewColumns();
-
-        ITableColumn<T> GetColumn(TableColumnIdentifier identifier);
-    }
-
     public abstract class AbstractAutoColumnRepository<T> : ITableColumnRepository<T> where T : IId
     {
         private readonly IEnumerable<ITableColumn<T>> _propertyColumns;

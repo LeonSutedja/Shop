@@ -1,7 +1,7 @@
 ﻿using Shop.Infrastructure.TableCreator.Column;
 using System.Collections.Generic;
 
-namespace Shop.Infrastructure.TableCreator.Builder
+namespace Shop.Infrastructure.TableCreator
 {
     public interface ITableBuilder<T>
     {

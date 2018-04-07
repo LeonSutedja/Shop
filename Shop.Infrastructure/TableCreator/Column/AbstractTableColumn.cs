@@ -1,12 +1,12 @@
 ﻿using Shop.Infrastructure.Repository;
-using Shop.Infrastructure.TableCreator.Column;
 using Shop.Infrastructure.TableCreator.ColumnFilter;
+using Shop.Infrastructure.TableCreator.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Shop.Infrastructure.TableCreator
+namespace Shop.Infrastructure.TableCreator.Column
 {
     /// <summary>
     /// Base class

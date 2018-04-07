@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Shop.Infrastructure.TableCreator
+namespace Shop.Infrastructure.TableCreator.Helper
 {
     /// <summary>
     /// Expression chaining code is from: http://stevesspace.com/2016/06/chaining-expressions-in-c/
     /// </summary>
-    public static class ExpressionExtension
+    public static class ExpressionSwapVisitorExtension
     {
         public static Expression<Func<TIn, TOut>> Chain<TIn, TInterstitial, TOut>(
           this Expression<Func<TIn, TInterstitial>> inner,
