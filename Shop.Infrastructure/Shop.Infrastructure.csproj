@@ -49,10 +49,12 @@
     <Compile Include="Customer\CustomerRepository.cs" />
     <Compile Include="Customer\CustomerService.cs" />
     <Compile Include="Interfaces\ICustomerService.cs" />
+    <Compile Include="Product\TableCreator\ProductAutoColumnRepository.cs" />
     <Compile Include="Product\ProductService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Product\Product.cs" />
     <Compile Include="Product\ProductRepository.cs" />
+    <Compile Include="Product\TableCreator\ProductTableBuilder.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
