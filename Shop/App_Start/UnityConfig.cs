@@ -49,7 +49,9 @@ namespace Shop.App_Start
             /// The following line is to map between generic interface of IRepository to all of their implementations.
             container.RegisterTypes(AllClasses.FromLoadedAssemblies()
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
-                i.GetGenericTypeDefinition() == typeof(IRepository<>))), WithMappings.FromAllInterfaces, WithName.Default, WithLifetime.ContainerControlled);
+                i.GetGenericTypeDefinition() == typeof(IRepository<>))), 
+                WithMappings.FromAllInterfaces, 
+                WithName.Default, WithLifetime.ContainerControlled);
 
             // External services mapping
             // Map shop.infrastructure.service
@@ -58,26 +60,33 @@ namespace Shop.App_Start
 
             // Map Shop.Order
             container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
+            
+            _registerCommandHandlers(container);
+            _registerTableCreator(container);
+        }
 
-            // Handlers
-            container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>(new ContainerControlledLifetimeManager());
-            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
-                .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
-                i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>))), WithMappings.FromAllInterfaces,
-                WithName.Default, WithLifetime.ContainerControlled);
-
+        private static void _registerTableCreator(IUnityContainer container)
+        {
             // TableCreator
             container.RegisterTypes(AllClasses.FromLoadedAssemblies()
                     .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
-                                                           i.GetGenericTypeDefinition() == typeof(ITableColumnRepository<>))), 
+                                                           i.GetGenericTypeDefinition() == typeof(ITableColumnRepository<>))),
                 WithMappings.FromAllInterfaces,
                 WithName.Default, WithLifetime.PerThread);
 
-            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
-                    .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
-                                                           i.GetGenericTypeDefinition() == typeof(ITableColumn<>))),
+
+            var tColumnTypes = AllClasses.FromLoadedAssemblies()
+                .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                                                       i.GetGenericTypeDefinition() == typeof(ITableColumn<>))).ToList();
+
+            container.RegisterTypes(tColumnTypes,
                 WithMappings.FromAllInterfaces,
-                WithName.Default, WithLifetime.PerThread);
+                WithName.TypeName, WithLifetime.PerThread);
+
+            var ienumerable = typeof(IEnumerable<>);
+            var itableColumnType = typeof(ITableColumn<Product>);
+            Type[] typeArgs = { itableColumnType };
+            ienumerable.MakeGenericType(typeArgs);
 
             container.RegisterType(typeof(IEnumerable<ITableColumn>), typeof(ITableColumn[]));
 
@@ -86,6 +95,16 @@ namespace Shop.App_Start
                                                            i.GetGenericTypeDefinition() == typeof(ITableBuilder<>))),
                 WithMappings.FromAllInterfaces,
                 WithName.Default, WithLifetime.PerThread);
+        }
+
+        private static void _registerCommandHandlers(IUnityContainer container)
+        {
+            // Handlers
+            container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>(new ContainerControlledLifetimeManager());
+            container.RegisterTypes(AllClasses.FromLoadedAssemblies()
+                    .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
+                                                           i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>))), WithMappings.FromAllInterfaces,
+                WithName.Default, WithLifetime.ContainerControlled);
         }
     }
 }

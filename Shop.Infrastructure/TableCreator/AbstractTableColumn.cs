@@ -152,8 +152,7 @@ namespace Shop.Infrastructure.TableCreator
         protected override IQueryable<T> Filter(IQueryable<T> sourceQuery, TableColumnFilter filter)
         {
             var filterExpression = filter.FilterFreeText.GetFilterExpression();
-            var offerViewNameExpression = EntityLambdaExpression();
-            return sourceQuery.Where(offerViewNameExpression.Chain(filterExpression));
+            return sourceQuery.Where(EntityLambdaExpression().Chain(filterExpression));
         }
 
         protected abstract Expression<Func<T, string>> EntityLambdaExpression();
@@ -199,8 +198,7 @@ namespace Shop.Infrastructure.TableCreator
         protected override IQueryable<T> Filter(IQueryable<T> sourceQuery, TableColumnFilter filter)
         {
             var filterExpression = filter.FilterDateRange.GetFilterExpression();
-            var offerViewNameExpression = EntityLambdaExpression();
-            return sourceQuery.Where(offerViewNameExpression.Chain(filterExpression));
+            return sourceQuery.Where(EntityLambdaExpression().Chain(filterExpression));
         }
 
         protected abstract Expression<Func<T, DateTime?>> EntityLambdaExpression();
@@ -247,8 +245,7 @@ namespace Shop.Infrastructure.TableCreator
         protected override IQueryable<T> Filter(IQueryable<T> sourceQuery, TableColumnFilter filter)
         {
             var filterEnumList = filter.MultiselectText.GetEnumsOfStringValues<TEnum>();
-            var expr = EntityLambdaExpression();
-            return sourceQuery.Where(expr.Chain(tenum => filterEnumList.Contains(tenum)));
+            return sourceQuery.Where(EntityLambdaExpression().Chain(tenum => filterEnumList.Contains(tenum)));
         }
 
         protected abstract Expression<Func<T, TEnum>> EntityLambdaExpression();
@@ -298,8 +295,7 @@ namespace Shop.Infrastructure.TableCreator
         protected override IQueryable<T> Filter(IQueryable<T> sourceQuery, TableColumnFilter filter)
         {
             var filterEnumList = filter.MultiselectText.StringValues;
-            var expr = EntityLambdaExpression();
-            return sourceQuery.Where(expr.Chain(tenum => filterEnumList.Contains(tenum)));
+            return sourceQuery.Where(EntityLambdaExpression().Chain(tenum => filterEnumList.Contains(tenum)));
         }
 
         protected abstract Expression<Func<T, string>> EntityLambdaExpression();
@@ -339,10 +335,49 @@ namespace Shop.Infrastructure.TableCreator
         protected override IQueryable<T> Filter(IQueryable<T> sourceQuery, TableColumnFilter filter)
         {
             var filterExpression = filter.Boolean.GetFilterExpression();
-            var offerViewNameExpression = EntityLambdaExpression();
-            return sourceQuery.Where(offerViewNameExpression.Chain(filterExpression));
+            return sourceQuery.Where(EntityLambdaExpression().Chain(filterExpression));
         }
 
         protected abstract Expression<Func<T, bool>> EntityLambdaExpression();
+    }
+
+    public abstract class IntTableColumn<T> : TableColumn<T> where T : IId
+    {
+        protected IntTableColumn(TableColumnType columnType, string columnIdentifierName, string title)
+            : base(columnType, columnIdentifierName, title)
+        {
+        }
+
+        public override TableColumnFilterStrategy FilterStrategy => TableColumnFilterStrategy.NumericRange;
+
+        public override string GetValueAsString(T entity)
+        {
+            try
+            {
+                return EntityLambdaExpression().Compile().Invoke(entity).ToString();
+            }
+            catch (Exception)
+            {
+                var typeName = entity.GetType().FullName;
+                var lambdaAsString = EntityLambdaExpression().ToString();
+                throw new Exception("Cannot invoke value as integer. entity: " + typeName + ", lambda: " + lambdaAsString + ", id: " + entity.Id);
+            }
+        }
+
+        public override IQueryable<int> ApplySort(IQueryable<T> sourceQuery, bool isAscending)
+        {
+            var orderingLambda = EntityLambdaExpression();
+            return isAscending
+                ? sourceQuery.OrderBy(orderingLambda).ThenBy(po => po.Id).Select(po => po.Id)
+                : sourceQuery.OrderByDescending(orderingLambda).ThenBy(po => po.Id).Select(po => po.Id);
+        }
+
+        protected override IQueryable<T> Filter(IQueryable<T> sourceQuery, TableColumnFilter filter)
+        {
+            var filterExpression = filter.NumericRange.GetIntegerFilterExpression();
+            return sourceQuery.Where(EntityLambdaExpression().Chain(filterExpression));
+        }
+
+        protected abstract Expression<Func<T, int>> EntityLambdaExpression();
     }
 }

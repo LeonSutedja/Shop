@@ -4,6 +4,7 @@ using System.Linq;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.ColumnFilter;
 
 namespace Shop.Infrastructure.Product
 {
@@ -104,5 +105,73 @@ namespace Shop.Infrastructure.Product
 
         protected override IEnumerable<ITableColumn<Product>> GetInitialColumns(List<ITableColumn<Product>> allColumnsAvailable)
             => allColumnsAvailable;
+    }
+    
+    public class ProductQuantityColumn : ITableColumn<Product>
+    {
+        public string Title => "Quantity";
+        public TableColumnFilterStrategy FilterStrategy => TableColumnFilterStrategy.NumericRange;
+        public TableColumnIdentifier Identifier => new TableColumnIdentifier("qty", TableColumnType.Property);
+        public IEnumerable<string> StringFilterValues => new List<string>();
+        public bool IsSortDisable => false;
+        public bool IsFilterDisable => false;
+
+        public TableColumnDefinition GetColumnDefinition()
+            => new TableColumnDefinition
+            {
+                FilterStrategy = FilterStrategy,
+                Identifier = Identifier,
+                IsFilterDisable = IsFilterDisable,
+                IsSortDisable = IsSortDisable,
+                StringFilterValues = StringFilterValues.ToList(),
+                Title = Title
+            };
+
+        public int? HeadlineSequenceNumber => 0;
+
+        public string GetValueAsString(Product entity)
+            => entity.StockQuantity.ToString();
+
+        public IQueryable<Product> ApplyFilter(IQueryable<Product> sourceQuery, TableColumnFilter filter)
+            => sourceQuery;
+
+        public IQueryable<int> ApplySort(IQueryable<Product> sourceQuery, bool isAscending)
+            => sourceQuery.Select(q => q.Id);
+
+    }
+
+    public class Test
+    {
+
+    }
+
+    public class TestQuantityColumn : ITableColumn<Test>
+    {
+        public string Title { get; }
+        public TableColumnFilterStrategy FilterStrategy { get; }
+        public TableColumnIdentifier Identifier { get; }
+        public IEnumerable<string> StringFilterValues { get; }
+        public bool IsSortDisable { get; }
+        public bool IsFilterDisable { get; }
+        public TableColumnDefinition GetColumnDefinition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int? HeadlineSequenceNumber { get; }
+        public string GetValueAsString(Test entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Test> ApplyFilter(IQueryable<Test> sourceQuery, TableColumnFilter filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<int> ApplySort(IQueryable<Test> sourceQuery, bool isAscending)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

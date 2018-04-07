@@ -21,11 +21,10 @@ namespace Shop.Infrastructure.TableCreator
 
         protected AbstractAutoColumnRepository(IEnumerable<ITableColumn> injectedTableColumns)
         {
-            var injectedTableColumns1 = injectedTableColumns.ToList();
-            var newInjectedTableColumns = new List<ITableColumn<T>>();
+            var newInjectedTableColumns = GetTableColumns(injectedTableColumns).ToList();
             var columnList = new List<ITableColumn<T>>();
             var characteristicDefinitionType = typeof(T);
-            var listInjectedName = injectedTableColumns.Select(col => col.Identifier.AdditionalData).ToList();
+            var listInjectedName = newInjectedTableColumns.Select(col => col.Identifier.AdditionalData).ToList();
 
             var properties = characteristicDefinitionType.GetProperties();
 
@@ -47,6 +46,13 @@ namespace Shop.Infrastructure.TableCreator
                 {
                     var expression = Expression.Lambda<Func<T, string>>(field, param);
                     var newColumn = new PublicStringTableColumn(TableColumnType.Property, property.Name, title, expression);
+
+                    columnList.Add(newColumn);
+                }
+                else if (property.PropertyType == typeof(int))
+                {
+                    var expression = Expression.Lambda<Func<T, int>>(field, param);
+                    var newColumn = new PublicIntTableColumn(TableColumnType.Property, property.Name, title, expression);
 
                     columnList.Add(newColumn);
                 }
@@ -92,6 +98,11 @@ namespace Shop.Infrastructure.TableCreator
             return new List<string>();
         }
 
+        private IEnumerable<ITableColumn<T>> GetTableColumns(IEnumerable<ITableColumn> tableColumns)
+            => tableColumns
+                .Where(col => col.GetType().GetInterfaces().Any(i => i == typeof(ITableColumn<T>)))
+                .Select(i => i as ITableColumn<T>);
+
         private class PublicFlagTableColumn : FlagTableColumn<T>
         {
             private readonly Expression<Func<T, bool>> _lambdaExpression;
@@ -110,6 +121,23 @@ namespace Shop.Infrastructure.TableCreator
             {
                 return _lambdaExpression;
             }
+        }
+
+        private class PublicIntTableColumn : IntTableColumn<T>
+        {
+            private readonly Expression<Func<T, int>> _lambdaExpression;
+
+            public PublicIntTableColumn(
+                TableColumnType columnType, 
+                string columnIdentifierName, 
+                string title, 
+                Expression<Func<T, int>> lambdaExpression) 
+                : base(columnType, columnIdentifierName, title)
+            {
+                _lambdaExpression = lambdaExpression;
+            }
+
+            protected override Expression<Func<T, int>> EntityLambdaExpression() => _lambdaExpression;
         }
 
         private class PublicDateTimeTableColumn : DateTimeTableColumn<T>
