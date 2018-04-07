@@ -6,10 +6,6 @@
     {
         public int Id { get; set; }
 
-        public int? NextVersionId { get; set; }
-
-        public int? PendingNextVersionId { get; set; }
-
         public List<string> Cells { get; set; }
     }
 }

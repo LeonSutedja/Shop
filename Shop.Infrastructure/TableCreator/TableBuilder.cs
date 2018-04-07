@@ -4,8 +4,6 @@
 
     public abstract class TableBuilder<T> : ITableBuilder<T>
     {
-        protected int ProductCategoryId { get; private set; }
-
         protected List<ColumnFilter.TableColumnFilter> ColumnFilters { get; private set; }
 
         protected int PageNumberValue { get; private set; }
@@ -27,12 +25,6 @@
         public ITableBuilder<T> PageNumber(int pageNumber)
         {
             PageNumberValue = pageNumber;
-            return this;
-        }
-
-        public ITableBuilder<T> Category(int productCategoryId)
-        {
-            this.ProductCategoryId = productCategoryId;
             return this;
         }
 

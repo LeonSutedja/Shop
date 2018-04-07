@@ -23,7 +23,7 @@ namespace Shop.Infrastructure.Product.TableCreator
         protected override IQueryable<Product> GetItemsToSort()
             => _productRepository.All().AsQueryable();
 
-        protected override IQueryable<Product> GetItemsQueryBaseOnCategory(IQueryable<Product> items)
+        protected override IQueryable<Product> GetItemsQuery(IQueryable<Product> items)
             => items;
 
         protected override Dictionary<Type, InitializeColumnSortFunction> InitializeColumnSort()

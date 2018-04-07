@@ -39,8 +39,6 @@ namespace Shop.Infrastructure.TableCreator
                                     .Select(owc => new TableRow
                                     {
                                         Id = GetId(owc),
-                                        PendingNextVersionId = GetNextPendingVersionId(owc),
-                                        NextVersionId = GetNextVersionId(owc),
                                         Cells = displayColumnRequested.Select(cr => cr.GetValueAsString(owc)).ToList()
                                     }).ToList();
 
@@ -59,21 +57,11 @@ namespace Shop.Infrastructure.TableCreator
             return entity.GetType().GetProperty("Id")?.GetValue(entity, null) as int? ?? -1;
         }
 
-        protected virtual int? GetNextVersionId(T entity)
-        {
-            return null;
-        }
-
-        protected virtual int? GetNextPendingVersionId(T entity)
-        {
-            return null;
-        }
-
         protected abstract List<ITableColumn<T>> GetAllTableColumnsForTable();
 
         protected abstract IQueryable<T> GetItemsToSort();
 
-        protected abstract IQueryable<T> GetItemsQueryBaseOnCategory(IQueryable<T> items);
+        protected abstract IQueryable<T> GetItemsQuery(IQueryable<T> items);
 
         protected abstract Dictionary<Type, InitializeColumnSortFunction> InitializeColumnSort();
 

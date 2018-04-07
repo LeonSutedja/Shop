@@ -4,8 +4,6 @@
 
     public interface ITableBuilder<T>
     {
-        ITableBuilder<T> Category(int productCategoryId);
-
         ITableBuilder<T> ColumnRequested(List<TableColumnIdentifier> colIdsRequested);
 
         ITableBuilder<T> PageSize(int pageSize);
