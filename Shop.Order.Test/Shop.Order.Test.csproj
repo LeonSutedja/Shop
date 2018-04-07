@@ -65,14 +65,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="OrderServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.Infrastructure\Shop.Infrastructure.csproj">
+      <Project>{ae6c031d-2d2b-4102-9a90-f5f6d18d214d}</Project>
+      <Name>Shop.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shop.Order\Shop.Order.csproj">
+      <Project>{9303169d-8cdc-46a4-a292-3efcd78d11d4}</Project>
+      <Name>Shop.Order</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shop\Shop.csproj">
+      <Project>{8366cbf5-d739-49f4-82f7-c9626024beda}</Project>
+      <Name>Shop</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
