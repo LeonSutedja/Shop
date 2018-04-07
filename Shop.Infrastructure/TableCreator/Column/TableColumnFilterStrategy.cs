@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Shop.Infrastructure.TableCreator.TableColumns
+namespace Shop.Infrastructure.TableCreator.Column
 {
     public enum TableColumnFilterStrategy
     {

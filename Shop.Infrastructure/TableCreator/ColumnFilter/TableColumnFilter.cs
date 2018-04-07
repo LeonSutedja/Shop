@@ -1,4 +1,4 @@
-﻿using Shop.Infrastructure.TableCreator.TableColumns;
+﻿using Shop.Infrastructure.TableCreator.Column;
 
 namespace Shop.Infrastructure.TableCreator.ColumnFilter
 {

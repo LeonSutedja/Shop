@@ -1,6 +1,6 @@
 ﻿using Shop.Infrastructure.TableCreator.ColumnFilter;
 
-namespace Shop.Infrastructure.TableCreator.TableColumns
+namespace Shop.Infrastructure.TableCreator.Column
 {
     /// <summary>
     /// Provides identification for the column that is being shown / requested.

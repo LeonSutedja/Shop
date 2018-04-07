@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shop.Infrastructure.TableCreator.TableColumns
+namespace Shop.Infrastructure.TableCreator.Column
 {
     public class TableColumnDefinition
     {

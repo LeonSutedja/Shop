@@ -1,12 +1,11 @@
 ﻿using Shop.Infrastructure.Repository;
-using Shop.Infrastructure.TableCreator.TableColumns;
+using Shop.Infrastructure.TableCreator.Column;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Shop.Infrastructure.TableCreator
+namespace Shop.Infrastructure.TableCreator.Builder
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     public abstract class TableBuilderGeneric<T> : TableBuilder<T> where T : IId
     {
         // Initial Variables for Processing

@@ -1,6 +1,7 @@
 ﻿using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
-using Shop.Infrastructure.TableCreator.TableColumns;
+using Shop.Infrastructure.TableCreator.Builder;
+using Shop.Infrastructure.TableCreator.Column;
 using System;
 using System.Collections.Generic;
 using System.Linq;

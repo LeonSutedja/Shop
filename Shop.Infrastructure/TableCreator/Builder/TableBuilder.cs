@@ -1,9 +1,8 @@
-﻿using Shop.Infrastructure.TableCreator.TableColumns;
+﻿using Shop.Infrastructure.TableCreator.Column;
+using System.Collections.Generic;
 
-namespace Shop.Infrastructure.TableCreator
+namespace Shop.Infrastructure.TableCreator.Builder
 {
-    using System.Collections.Generic;
-
     public abstract class TableBuilder<T> : ITableBuilder<T>
     {
         protected List<ColumnFilter.TableColumnFilter> ColumnFilters { get; private set; }

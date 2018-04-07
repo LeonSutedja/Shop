@@ -1,6 +1,7 @@
 ﻿using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.Builder;
 using System;
 
 namespace Shop.Infrastructure.Product

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shop.Infrastructure.TableCreator.TableColumns
+namespace Shop.Infrastructure.TableCreator.Column
 {
     public interface ITableColumn
     {
