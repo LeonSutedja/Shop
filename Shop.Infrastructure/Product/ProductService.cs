@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Shop.Infrastructure.Interfaces;
+﻿using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
-using Shop.Infrastructure.TableCreator.ColumnFilter;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop.Infrastructure.Product
 {

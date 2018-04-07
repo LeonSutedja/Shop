@@ -49,8 +49,8 @@ namespace Shop.App_Start
             /// The following line is to map between generic interface of IRepository to all of their implementations.
             container.RegisterTypes(AllClasses.FromLoadedAssemblies()
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&
-                i.GetGenericTypeDefinition() == typeof(IRepository<>))), 
-                WithMappings.FromAllInterfaces, 
+                i.GetGenericTypeDefinition() == typeof(IRepository<>))),
+                WithMappings.FromAllInterfaces,
                 WithName.Default, WithLifetime.ContainerControlled);
 
             // External services mapping
@@ -60,7 +60,7 @@ namespace Shop.App_Start
 
             // Map Shop.Order
             container.RegisterType<IOrderService, OrderService>(new ContainerControlledLifetimeManager());
-            
+
             _registerCommandHandlers(container);
             _registerTableCreator(container);
         }
@@ -73,7 +73,6 @@ namespace Shop.App_Start
                                                            i.GetGenericTypeDefinition() == typeof(ITableColumnRepository<>))),
                 WithMappings.FromAllInterfaces,
                 WithName.Default, WithLifetime.PerThread);
-
 
             var tColumnTypes = AllClasses.FromLoadedAssemblies()
                 .Where(t => t.GetInterfaces().Any(i => i.IsGenericType &&

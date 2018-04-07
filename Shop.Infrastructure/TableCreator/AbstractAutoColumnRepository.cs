@@ -1,6 +1,5 @@
 ﻿using Shop.Infrastructure.Repository;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -128,10 +127,10 @@ namespace Shop.Infrastructure.TableCreator
             private readonly Expression<Func<T, int>> _lambdaExpression;
 
             public PublicIntTableColumn(
-                TableColumnType columnType, 
-                string columnIdentifierName, 
-                string title, 
-                Expression<Func<T, int>> lambdaExpression) 
+                TableColumnType columnType,
+                string columnIdentifierName,
+                string title,
+                Expression<Func<T, int>> lambdaExpression)
                 : base(columnType, columnIdentifierName, title)
             {
                 _lambdaExpression = lambdaExpression;
