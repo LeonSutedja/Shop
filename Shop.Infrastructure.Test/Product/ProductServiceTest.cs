@@ -123,9 +123,9 @@ namespace Shop.Infrastructure.Test.Product
             };
 
             var tableOutput = _productService.GetProducts(tableInput);
-            var firstRowId = tableOutput.Rows.First().Id;
-            var lastRowId = tableOutput.Rows.Last().Id;
-            firstRowId.ShouldBeGreaterThan(lastRowId);
+            var firstRowName = tableOutput.Rows.First().Cells[0];
+            var lastRowName = tableOutput.Rows.Last().Cells[0];
+            firstRowName.ShouldBeGreaterThan(lastRowName);
         }
     }
 }

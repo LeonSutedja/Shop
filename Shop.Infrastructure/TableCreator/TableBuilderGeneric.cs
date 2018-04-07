@@ -9,7 +9,7 @@ namespace Shop.Infrastructure.TableCreator
     public abstract class TableBuilderGeneric<T> : TableBuilder<T> where T : IId
     {
         // Initial Variables for Processing
-        private List<ITableColumn<T>> _allItemsColumnsAvailableForCategory;
+        private List<ITableColumn<T>> _allTableColumns;
 
         protected delegate ITableColumn<T> InitializeColumnFilterFunction(ITableColumn<T> column);
 
@@ -18,29 +18,25 @@ namespace Shop.Infrastructure.TableCreator
         public override TableOutput Build()
         {
             //// Setup initial variables for processing
-            _allItemsColumnsAvailableForCategory = GetAllItemsColumnsAvailableForCategory();
+            _allTableColumns = GetAllTableColumnsForTable();
 
             //// When the default column is null, this should get the initial display columns
             var displayColumnRequested = ColumnIdsRequestedValue == null
-                ? GetInitialColumns(_allItemsColumnsAvailableForCategory.ToList())
+                ? GetInitialColumns(_allTableColumns.ToList())
                 : GetDisplayColumnRequested(ColumnIdsRequestedValue).ToList();
 
-            var itemsWithCharacteristicsQuery = GetItemsToSort();
-            itemsWithCharacteristicsQuery = GetItemsQueryBaseOnCategory(itemsWithCharacteristicsQuery);
+            var itemsToSort = GetItemsToSort();
 
-            if (ColumnFilters != null)
+            ColumnFilters?.ForEach((filter) =>
             {
-                ColumnFilters.ForEach((filter) =>
-                {
-                    itemsWithCharacteristicsQuery = ProcessFilter(itemsWithCharacteristicsQuery, filter);
-                });
-            }
+                itemsToSort = ProcessFilter(itemsToSort, filter);
+            });
 
-            var totalItems = itemsWithCharacteristicsQuery.Count();
-            var sortedDisplay = ProcessSortAndPagination(itemsWithCharacteristicsQuery);
+            var totalItems = itemsToSort.Count();
+            var sortedDisplay = ProcessSortAndPagination(itemsToSort);
 
             var rowSummary = sortedDisplay
-                                    .Select(owc => new TableRow()
+                                    .Select(owc => new TableRow
                                     {
                                         Id = GetId(owc),
                                         PendingNextVersionId = GetNextPendingVersionId(owc),
@@ -50,7 +46,7 @@ namespace Shop.Infrastructure.TableCreator
 
             var displayColumnDtos = displayColumnRequested.Select(col => col.GetColumnDefinition()).ToList();
 
-            return new TableOutput()
+            return new TableOutput
             {
                 Rows = rowSummary,
                 Columns = displayColumnDtos,
@@ -60,7 +56,7 @@ namespace Shop.Infrastructure.TableCreator
 
         protected virtual int GetId(T entity)
         {
-            return (entity.GetType().GetProperty("Id").GetValue(entity, null) as int?) ?? -1;
+            return entity.GetType().GetProperty("Id")?.GetValue(entity, null) as int? ?? -1;
         }
 
         protected virtual int? GetNextVersionId(T entity)
@@ -73,7 +69,7 @@ namespace Shop.Infrastructure.TableCreator
             return null;
         }
 
-        protected abstract List<ITableColumn<T>> GetAllItemsColumnsAvailableForCategory();
+        protected abstract List<ITableColumn<T>> GetAllTableColumnsForTable();
 
         protected abstract IQueryable<T> GetItemsToSort();
 
@@ -87,7 +83,7 @@ namespace Shop.Infrastructure.TableCreator
 
         private IQueryable<T> ProcessFilter(IQueryable<T> productOffers, ColumnFilter.TableColumnFilter tableColumnFilter)
         {
-            var offerViewColumn = _allItemsColumnsAvailableForCategory.First(column => column.Identifier.Equals(tableColumnFilter.ColumnIdentifier));
+            var offerViewColumn = _allTableColumns.First(column => column.Identifier.Equals(tableColumnFilter.ColumnIdentifier));
 
             var initializeColumnFilters = InitializeColumnFilters();
             if (initializeColumnFilters.ContainsKey(offerViewColumn.GetType()))
@@ -104,19 +100,16 @@ namespace Shop.Infrastructure.TableCreator
             {
                 //***Contains Id, require to re - factor * **/
                 return items
-                   .OrderBy(offer => offer.Id)
+                   .OrderBy(item => item.Id)
                    .Skip((PageNumberValue - 1) * PageSizeValue)
                    .Take(PageSizeValue)
                    .ToList();
             }
 
-            var sortByColumn = _allItemsColumnsAvailableForCategory.First(cd => cd.Identifier.Equals(SortByValue));
+            var sortByColumn = _allTableColumns
+                .First(cd => cd.Identifier.Equals(SortByValue));
             var initializeColumnSort = InitializeColumnSort();
             var type = sortByColumn.GetType().BaseType;
-            //if (type.BaseType == typeof(OfferViewCharacteristicColumn))
-            //{
-            //    type = typeof(OfferViewCharacteristicColumn);
-            //}
 
             if (initializeColumnSort.ContainsKey(type))
             {
@@ -124,7 +117,7 @@ namespace Shop.Infrastructure.TableCreator
             }
 
             // Tell the column to apply its sort, which will give us a list of Offer IDs in display order. Apply pagination to this list.
-            var displayOfferIds = sortByColumn.ApplySort(items, IsSortAscendingValue.Value)
+            var displayItemIds = sortByColumn.ApplySort(items, IsSortAscendingValue.Value)
                                             .Skip((PageNumberValue - 1) * PageSizeValue)
                                             .Take(PageSizeValue)
                                             .ToList();
@@ -132,15 +125,14 @@ namespace Shop.Infrastructure.TableCreator
             // Now that we have one page's worth of IDs we can do a full retrieval of those offers. But we have to re-apply the sort to those full offers!
             //*** Contains Id, require to re-factor ***/
             return items
-                //.Where(offer => displayOfferIds.Contains(offer.Id)) // This will lose the sort order...
-                .ToList();
-            //.OrderBy(offer => displayOfferIds.IndexOf(offer.Id)); // ... so we have to re-apply it!
+                .Where(offer => displayItemIds.Contains(offer.Id)) // This will lose the sort order...
+                .OrderBy(offer => displayItemIds.IndexOf(offer.Id)); // ... so we have to re-apply it!
         }
 
         private IEnumerable<ITableColumn<T>> GetDisplayColumnRequested(IEnumerable<TableColumnIdentifier> columnIdentifiersRequested)
         {
             return columnIdentifiersRequested
-                .Select(id => _allItemsColumnsAvailableForCategory
+                .Select(id => _allTableColumns
                     .First(allCol => allCol.Identifier.Equals(id)));
         }
     }

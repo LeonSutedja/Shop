@@ -52,6 +52,7 @@ namespace Shop.Infrastructure.Product
                 .PageNumber(input.PageNumber)
                 .PageSize(input.PageSize)
                 .IsSortAscending(input.SortDirectionAsc)
+                .SortBy(input.SortBy)
                 .Build();
         }
 

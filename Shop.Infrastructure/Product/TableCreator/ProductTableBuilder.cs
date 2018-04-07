@@ -17,7 +17,7 @@ namespace Shop.Infrastructure.Product.TableCreator
             _tableColumnRepository = tableColumnRepository;
         }
 
-        protected override List<ITableColumn<Product>> GetAllItemsColumnsAvailableForCategory()
+        protected override List<ITableColumn<Product>> GetAllTableColumnsForTable()
             => _tableColumnRepository.GetAllViewColumns().ToList();
 
         protected override IQueryable<Product> GetItemsToSort()
