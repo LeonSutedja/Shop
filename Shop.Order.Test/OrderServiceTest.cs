@@ -8,7 +8,7 @@ namespace Shop.Order.Test
         public OrderServiceTest()
         {
             //    var unityContainer = new UnityContainer();
-
+            // Test VS git
             //    Shop.App_Start.UnityConfig.RegisterTypes(unityContainer as (Microsoft.Practices.Unity.UnityContainer));
         }
 
