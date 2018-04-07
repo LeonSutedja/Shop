@@ -108,5 +108,24 @@ namespace Shop.Infrastructure.Test.Product
             tableOutput.Columns.Count.ShouldBeGreaterThan(0);
             tableOutput.TotalProductOffersCount.ShouldBeGreaterThan(0);
         }
+
+        [Fact]
+        public void GetProducts_Should_SortDirectionDescending()
+        {
+            var pageNumber = 1;
+            var pageSize = 10;
+            var tableInput = new TableInput
+            {
+                SortBy = new TableColumnIdentifier("Name", TableColumnType.Property),
+                SortDirectionAsc = false,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var tableOutput = _productService.GetProducts(tableInput);
+            var firstRowId = tableOutput.Rows.First().Id;
+            var lastRowId = tableOutput.Rows.Last().Id;
+            firstRowId.ShouldBeGreaterThan(lastRowId);
+        }
     }
 }
