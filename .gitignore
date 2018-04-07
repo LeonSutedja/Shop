@@ -216,8 +216,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-Shop/bin/Shop.dll
-Shop/bin/Shop.Infrastructure.pdb
-Shop/obj/Debug/Shop.csproj.FileListAbsolute.txt
-/.vs/Shop/v15
-/packages/AutoMapper.6.2.2
+Shop/bin
+Shop/obj
+/packages
+.vs
