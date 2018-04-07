@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using Shop.Infrastructure.Interfaces;
+﻿using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.TableColumns;
 using Shouldly;
+using System.Linq;
 using Unity;
 using Xunit;
 

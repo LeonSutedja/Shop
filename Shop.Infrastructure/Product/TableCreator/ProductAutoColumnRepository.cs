@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Shop.Infrastructure.TableCreator;
+﻿using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.TableColumns;
+using System.Collections.Generic;
 
 namespace Shop.Infrastructure.Product.TableCreator
 {

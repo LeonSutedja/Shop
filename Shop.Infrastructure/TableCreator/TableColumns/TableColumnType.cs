@@ -1,4 +1,4 @@
-﻿namespace Shop.Infrastructure.TableCreator
+﻿namespace Shop.Infrastructure.TableCreator.TableColumns
 {
     public enum TableColumnType
     {

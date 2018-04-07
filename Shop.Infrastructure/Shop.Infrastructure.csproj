@@ -60,11 +60,11 @@
     <Compile Include="TableCreator\ITableBuilder.cs" />
     <Compile Include="TableCreator\TableBuilder.cs" />
     <Compile Include="TableCreator\TableBuilderGeneric.cs" />
-    <Compile Include="TableCreator\TableColumn.cs" />
-    <Compile Include="TableCreator\TableColumnDefinition.cs" />
-    <Compile Include="TableCreator\TableColumnFilterStrategy.cs" />
-    <Compile Include="TableCreator\TableColumnIdentifier.cs" />
-    <Compile Include="TableCreator\TableColumnType.cs" />
+    <Compile Include="TableCreator\TableColumns\TableColumn.cs" />
+    <Compile Include="TableCreator\TableColumns\TableColumnDefinition.cs" />
+    <Compile Include="TableCreator\TableColumns\TableColumnFilterStrategy.cs" />
+    <Compile Include="TableCreator\TableColumns\TableColumnIdentifier.cs" />
+    <Compile Include="TableCreator\TableColumns\TableColumnType.cs" />
     <Compile Include="TableCreator\TableInput.cs" />
     <Compile Include="TableCreator\TableOutput.cs" />
     <Compile Include="TableCreator\TableRow.cs" />

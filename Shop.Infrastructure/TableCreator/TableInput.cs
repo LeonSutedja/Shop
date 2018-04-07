@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Shop.Infrastructure.TableCreator.TableColumns;
+using System.Text;
 
 namespace Shop.Infrastructure.TableCreator
 {

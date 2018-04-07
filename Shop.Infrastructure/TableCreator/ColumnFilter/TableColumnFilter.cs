@@ -1,4 +1,6 @@
-﻿namespace Shop.Infrastructure.TableCreator.ColumnFilter
+﻿using Shop.Infrastructure.TableCreator.TableColumns;
+
+namespace Shop.Infrastructure.TableCreator.ColumnFilter
 {
     public class TableColumnFilter
     {

@@ -1,4 +1,5 @@
 ﻿using Shop.Infrastructure.Repository;
+using Shop.Infrastructure.TableCreator.TableColumns;
 using System;
 
 namespace Shop.Infrastructure.TableCreator

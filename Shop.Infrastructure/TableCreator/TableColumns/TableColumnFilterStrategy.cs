@@ -1,7 +1,7 @@
-namespace Shop.Infrastructure.TableCreator
-{
-    using System.ComponentModel;
+using System.ComponentModel;
 
+namespace Shop.Infrastructure.TableCreator.TableColumns
+{
     public enum TableColumnFilterStrategy
     {
         // This will be used in TPSR-1536 to describe the filter mechanism (and therefore the UI) used by columns.

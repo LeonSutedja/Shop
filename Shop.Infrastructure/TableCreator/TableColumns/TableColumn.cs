@@ -1,9 +1,9 @@
-﻿namespace Shop.Infrastructure.TableCreator
-{
-    using ColumnFilter;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using Shop.Infrastructure.TableCreator.ColumnFilter;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Shop.Infrastructure.TableCreator.TableColumns
+{
     public interface ITableColumn
     {
         string Title { get; }

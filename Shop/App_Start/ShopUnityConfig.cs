@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.TableColumns;
 using Shop.Order;
 using Shop.Shared.Models.CommandHandler;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Unity;
 using Unity.Lifetime;
 using Unity.RegistrationByConvention;

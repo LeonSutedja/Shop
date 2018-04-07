@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Shop.Infrastructure.Repository;
+using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.TableColumns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Infrastructure.Repository;
-using Shop.Infrastructure.TableCreator;
 
 namespace Shop.Infrastructure.Product.TableCreator
 {

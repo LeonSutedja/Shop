@@ -1,7 +1,7 @@
-﻿namespace Shop.Infrastructure.TableCreator
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Shop.Infrastructure.TableCreator.TableColumns
+{
     public class TableColumnDefinition
     {
         public string Title { get; set; }
