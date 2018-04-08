@@ -5,7 +5,8 @@ Technology used:
   - c#
   - MVC .NET Framework with Razor
   - Unity
-  - Jquery, Javascript, bootstrap, Jquery UI  
+  - Jquery, Javascript, bootstrap, Jquery UI
+  - xUnit, Shouldly
 
 Highlights of the patterns in Shop:
   - Domain Driven Design with Component based system (Order, Product, Account)
