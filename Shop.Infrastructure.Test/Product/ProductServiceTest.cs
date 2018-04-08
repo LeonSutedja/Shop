@@ -1,9 +1,11 @@
-﻿using Shop.Infrastructure.Interfaces;
+﻿using System.Collections.Generic;
+using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
 using Shop.Infrastructure.TableCreator.Column;
 using Shouldly;
 using System.Linq;
+using Shop.Infrastructure.TableCreator.ColumnFilter;
 using Unity;
 using Xunit;
 
@@ -15,6 +17,7 @@ namespace Shop.Infrastructure.Test.Product
 
         private IProductService _productService { get; }
         private IRepository<Infrastructure.Product.Product> _productRepository { get; }
+        private ITableColumnRepository<Infrastructure.Product.Product> _productTableColumnRepository { get; }
 
         public ProductServiceTest()
         {
@@ -22,6 +25,7 @@ namespace Shop.Infrastructure.Test.Product
             UnityConfig.RegisterTypes(_unityContainer);
             _productService = _unityContainer.Resolve<IProductService>();
             _productRepository = _unityContainer.Resolve<IRepository<Infrastructure.Product.Product>>();
+            _productTableColumnRepository = _unityContainer.Resolve<ITableColumnRepository<Infrastructure.Product.Product>>();
         }
 
         [Theory]
@@ -111,7 +115,7 @@ namespace Shop.Infrastructure.Test.Product
         }
 
         [Fact]
-        public void GetProducts_Should_SortDirectionDescending()
+        public void GetProducts_Should_SortNameDirectionDesc()
         {
             var pageNumber = 1;
             var pageSize = 10;
@@ -127,6 +131,61 @@ namespace Shop.Infrastructure.Test.Product
             var firstRowName = tableOutput.Rows.First().Cells[0];
             var lastRowName = tableOutput.Rows.Last().Cells[0];
             firstRowName.ShouldBeGreaterThan(lastRowName);
+        }
+
+        [Fact]
+        public void GetProducts_Should_SortNameDirectionAsc()
+        {
+            var pageNumber = 1;
+            var pageSize = 10;
+            var tableInput = new TableInput
+            {
+                SortBy = new TableColumnIdentifier("Name", TableColumnType.Property),
+                SortDirectionAsc = true,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var tableOutput = _productService.GetProducts(tableInput);
+            var firstRowName = tableOutput.Rows.First().Cells[0];
+            var lastRowName = tableOutput.Rows.Last().Cells[0];
+            lastRowName.ShouldBeGreaterThan(firstRowName);
+        }
+
+        [Theory]
+        [InlineData("Aveda")]
+        [InlineData("Sunsilk")]
+        public void GetProducts_Should_FilterName(string nameToFilter)
+        {
+            var allTableColumns = _productTableColumnRepository.GetAllViewColumns();
+            var nameTableColumn = allTableColumns.FirstOrDefault(
+                tc => tc.Identifier.AdditionalData.Contains("Name"));
+            nameTableColumn.ShouldNotBeNull();
+
+            var nameIdentifier = nameTableColumn.Identifier;
+            var nameAvedaFilter = new TableColumnFilter
+            {
+                FilterFreeText = new FilterFreeText
+                {
+                    StringValue = nameToFilter,
+                    Type = FilterFreeTextType.Contains
+                },
+                ColumnIdentifier = nameIdentifier
+            };
+
+            var pageNumber = 1;
+            var pageSize = 10;
+            var tableInput = new TableInput
+            {
+                Filters = new List<TableColumnFilter> { nameAvedaFilter },
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var tableOutput = _productService.GetProducts(tableInput);
+            tableOutput.Rows.Count.ShouldBe(1);
+            var avedaRow = tableOutput.Rows.First();
+            avedaRow.Cells[0].ShouldBe(nameToFilter);
         }
     }
 }
