@@ -187,5 +187,28 @@ namespace Shop.Infrastructure.Test.Product
             var avedaRow = tableOutput.Rows.First();
             avedaRow.Cells[0].ShouldBe(nameToFilter);
         }
+
+        [Fact]
+        public void GetProducts_Should_GetNameColumnOnly()
+        {
+            var allTableColumns = _productTableColumnRepository.GetAllViewColumns();
+            var nameTableColumn = allTableColumns.FirstOrDefault(
+                tc => tc.Identifier.AdditionalData.Contains("Name"));
+            nameTableColumn.ShouldNotBeNull();
+
+            var nameIdentifier = nameTableColumn.Identifier;
+            var pageNumber = 1;
+            var pageSize = 10;
+            var tableInput = new TableInput
+            {
+                ColumnsRequested = new List<TableColumnIdentifier> { nameIdentifier },
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var tableOutput = _productService.GetProducts(tableInput);
+            tableOutput.Columns.Count.ShouldBe(1);
+            tableOutput.Columns[0].Identifier.AdditionalData.ShouldContain("Name");
+        }
     }
 }
