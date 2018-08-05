@@ -46,7 +46,7 @@ namespace Shop.Pages.Management.Product
             }
 
             if (sortDirection != null)
-                sortDirectionAsc = String.CompareOrdinal(sortDirection, "desc") != 0;
+                sortDirectionAsc = String.CompareOrdinal(sortDirection, "Desc") != 0;
 
             var tableInput = new TableInput
             {
