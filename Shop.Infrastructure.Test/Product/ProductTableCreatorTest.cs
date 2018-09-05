@@ -9,17 +9,17 @@ namespace Shop.Infrastructure.Test.Product
 {
     public class ProductTableCreatorTest
     {
-        private UnityContainer _unityContainer { get; }
+        //private UnityContainer _unityContainer { get; }
 
         private IProductService _productService { get; }
         private ITableColumnRepository<Infrastructure.Product.Product> _productTableColumnRepository { get; }
 
         public ProductTableCreatorTest()
         {
-            _unityContainer = new UnityContainer();
-            UnityConfig.RegisterTypes(_unityContainer);
-            _productService = _unityContainer.Resolve<IProductService>();
-            _productTableColumnRepository = _unityContainer.Resolve<ITableColumnRepository<Infrastructure.Product.Product>>();
+            //_unityContainer = new UnityContainer();
+            //UnityConfig.RegisterTypes(_unityContainer);
+            //_productService = _unityContainer.Resolve<IProductService>();
+            //_productTableColumnRepository = _unityContainer.Resolve<ITableColumnRepository<Infrastructure.Product.Product>>();
         }
 
         [Fact]
