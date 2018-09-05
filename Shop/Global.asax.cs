@@ -106,26 +106,17 @@ namespace Shop
             //    .InstancePerLifetimeScope();
 
             var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            allAssemblies.ForEach(assembly =>
-            {
-                builder.RegisterAssemblyTypes(assembly)
-                    .AsClosedTypesOf(typeof(IRepository<>))
-                    .InstancePerDependency();
-            });
+            builder.RegisterAssemblyTypes(allAssemblies)
+                .AsClosedTypesOf(typeof(IRepository<>))
+                .SingleInstance();
 
             // Need to find the generic implementation of this.
-            //builder.RegisterType<CustomerRepository>().As(typeof(IRepository<Customer>));
-            //builder.RegisterType<OrderRepository>().As(typeof(IRepository<Order.Order>));
-            //builder.RegisterType<ProductRepository>().As(typeof(IRepository<Product>));
-
-
             // External services mapping
             // Map shop.infrastructure.service
-            builder.RegisterType<ProductService>().As<IProductService>();
-            builder.RegisterType<CustomerService>().As<ICustomerService>();
-
-            // Map Shop.Order
-            builder.RegisterType<OrderService>().As<IOrderService>();
+            builder.RegisterAssemblyTypes(allAssemblies)
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             _registerCommandHandlers(builder);
             _registerTableCreator(builder);
