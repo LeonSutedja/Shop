@@ -36,7 +36,7 @@ namespace Shop.Pages.Management.Product
         {
             TableColumnIdentifier sortByidentifier = null;
             var sortDirectionAsc = true;
-            if (sortBy != null)
+            if (!string.IsNullOrEmpty(sortBy))
             {
                 var allProductViewColumns = _productColumnRepository.GetAllViewColumns();
                 sortByidentifier = allProductViewColumns
