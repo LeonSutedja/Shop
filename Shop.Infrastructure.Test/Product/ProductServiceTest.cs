@@ -1,31 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using Autofac;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
 using Shop.Infrastructure.TableCreator.Column;
-using Shouldly;
-using System.Linq;
 using Shop.Infrastructure.TableCreator.ColumnFilter;
-using Unity;
+using Shouldly;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Infrastructure.Test.Product
 {
     public class ProductServiceTest
     {
-        private UnityContainer _unityContainer { get; }
-
         private IProductService _productService { get; }
         private IRepository<Infrastructure.Product.Product> _productRepository { get; }
         private ITableColumnRepository<Infrastructure.Product.Product> _productTableColumnRepository { get; }
 
         public ProductServiceTest()
         {
-            _unityContainer = new UnityContainer();
-            UnityConfig.RegisterTypes(_unityContainer);
-            _productService = _unityContainer.Resolve<IProductService>();
-            _productRepository = _unityContainer.Resolve<IRepository<Infrastructure.Product.Product>>();
-            _productTableColumnRepository = _unityContainer.Resolve<ITableColumnRepository<Infrastructure.Product.Product>>();
+            // Repositories
+            var autofacConfig = new AutofacConfig();
+            var container = autofacConfig.InitiateAutofacContainerBuilder();
+            _productService = container.Resolve<IProductService>();
+            _productRepository = container.Resolve<IRepository<Infrastructure.Product.Product>>();
+            _productTableColumnRepository = container.Resolve<ITableColumnRepository<Infrastructure.Product.Product>>();
         }
 
         [Theory]

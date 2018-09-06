@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using Shop.Infrastructure.Customer;
+﻿using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shop.Infrastructure.TableCreator;
+using Shop.Infrastructure.TableCreator.Column;
 using Shop.Shared.Controllers;
 using Shop.Shared.Models.CommandHandler;
+using System;
+using System.Linq;
 using System.Web.Mvc;
-using Shop.Infrastructure.TableCreator.Column;
 
 namespace Shop.Pages.Management.Product
 {
@@ -59,7 +59,7 @@ namespace Shop.Pages.Management.Product
             var tableOutput = _productService.GetProducts(tableInput);
             return View(tableOutput);
         }
-        
+
         [HttpPost]
         public ActionResult UpdateProduct(ProductEditViewModel viewModel)
         {

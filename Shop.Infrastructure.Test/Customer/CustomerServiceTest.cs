@@ -1,27 +1,25 @@
-﻿using System;
-using System.Linq;
+﻿using Autofac;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Interfaces;
 using Shop.Infrastructure.Repository;
 using Shouldly;
-using Unity;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Infrastructure.Test.Customer
 {
     public class CustomerServiceTest
     {
-        private UnityContainer _unityContainer { get; }
-
         private ICustomerService _customerService { get; }
         private IRepository<Infrastructure.Customer.Customer> _customerRepository { get; }
 
         public CustomerServiceTest()
         {
-            _unityContainer = new UnityContainer();
-            UnityConfig.RegisterTypes(_unityContainer);
-            _customerService = _unityContainer.Resolve<ICustomerService>();
-            _customerRepository = _unityContainer.Resolve<IRepository<Infrastructure.Customer.Customer>>();
+            var autofacConfig = new AutofacConfig();
+            var container = autofacConfig.InitiateAutofacContainerBuilder();
+            _customerService = container.Resolve<ICustomerService>();
+            _customerRepository = container.Resolve<IRepository<Infrastructure.Customer.Customer>>();
         }
 
         [Theory]

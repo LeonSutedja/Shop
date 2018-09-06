@@ -1,17 +1,15 @@
-﻿using System.Linq;
+﻿using Autofac;
 using Shop.Infrastructure.Customer;
 using Shop.Infrastructure.Product;
 using Shop.Infrastructure.Repository;
 using Shouldly;
-using Unity;
+using System.Linq;
 using Xunit;
 
 namespace Shop.Order.Test
 {
     public class OrderServiceTest
     {
-        private UnityContainer _unityContainer { get; }
-
         private IOrderService _orderService { get; }
 
         private IRepository<Customer> _customerRepository { get; }
@@ -19,11 +17,11 @@ namespace Shop.Order.Test
 
         public OrderServiceTest()
         {
-            _unityContainer = new UnityContainer();
-            Shop.UnityConfig.RegisterTypes(_unityContainer);
-            _orderService = _unityContainer.Resolve<IOrderService>();
-            _customerRepository = _unityContainer.Resolve<IRepository<Customer>>();
-            _productRepository = _unityContainer.Resolve<IRepository<Product>>();
+            var autofacConfig = new AutofacConfig();
+            var container = autofacConfig.InitiateAutofacContainerBuilder();
+            _orderService = container.Resolve<IOrderService>();
+            _customerRepository = container.Resolve<IRepository<Customer>>();
+            _productRepository = container.Resolve<IRepository<Product>>();
         }
 
         [Fact]
