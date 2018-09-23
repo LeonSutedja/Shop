@@ -35,11 +35,8 @@ namespace Shop
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/themes/base/core.css",
-                      "~/Content/themes/base/resizable.css",
-                      "~/Content/themes/base/selectable.css",
-                      "~/Content/themes/base/dialog.css",
-                      "~/Content/themes/base/theme.css",
+                      "~/Content/bootstrap-theme.css",
+                      "~/Content/themes/base/*.css",
                       "~/Content/site.css"
                       ));
         }
