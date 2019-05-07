@@ -18,35 +18,94 @@
         return result;
     }
 
-    $(document).ready(function () {
+    function sortByProductName() {
+        if ($("#product-neutral").is(":visible")) {
+            window.location.href = 'Product?sortBy=Name&sortDirection=Asc';
+        } else if ($("#product-up").is(":visible")) {
+            window.location.href = 'Product?sortBy=Name&sortDirection=Desc';
+        } else if ($("#product-down").is(":visible")) {
+            window.location.href = 'Product?sortBy=Name&sortDirection=Asc';
+        }
+    }
+
+    function sortByStock() {
+        if ($("#stock-neutral").is(":visible")) {
+            window.location.href = 'Product?sortBy=StockQuantity&sortDirection=Asc';
+        } else if ($("#stock-up").is(":visible")) {
+            window.location.href = 'Product?sortBy=StockQuantity&sortDirection=Desc';
+        } else if ($("#stock-down").is(":visible")) {
+            window.location.href = 'Product?sortBy=StockQuantity&sortDirection=Asc';
+        }
+    }
+
+    function sortByDescription() {
+        if ($("#description-neutral").is(":visible")) {
+            window.location.href = 'Product?sortBy=Description&sortDirection=Asc';
+        } else if ($("#description-up").is(":visible")) {
+            window.location.href = 'Product?sortBy=Description&sortDirection=Desc';
+        } else if ($("#description-down").is(":visible")) {
+            window.location.href = 'Product?sortBy=Description&sortDirection=Asc';
+        }
+    }
+
+    function initializeSortButtons() {
         var sortBy = findGetParameter("sortBy");
         var sortDirection = findGetParameter("sortDirection");
-        if (sortBy !== null) {
-            $("#sortby").val(sortBy);
-        }
-        if (sortDirection !== null) {
-            $("#sortdirection").val(sortDirection);
+
+        if (sortBy === "Name") {
+            if (sortDirection === "Asc") {
+                $("#product-neutral").hide();
+                $("#product-up").show();
+                $("#product-down").hide();
+            }
+            else {
+                $("#product-neutral").hide();
+                $("#product-up").hide();
+                $("#product-down").show();
+            }
+        } else {
+            $("#product-neutral").show();
+            $("#product-up").hide();
+            $("#product-down").hide();
         }
 
-        $('#sortby').change(function () {
-            var sortByValue = $(this).val();
-            var sortAscValue = $('#sortdirection').val();
-            if (sortAscValue == null) {
-                sortAscValue = "Asc";
+        if (sortBy === "StockQuantity") {
+            if (sortDirection === "Asc") {
+                $("#stock-neutral").hide();
+                $("#stock-up").show();
+                $("#stock-down").hide();
             }
-            window.location.href = 'Product?sortBy=' + sortByValue
-                + "&sortDirection=" + sortAscValue;
-        });
+            else {
+                $("#stock-neutral").hide();
+                $("#stock-up").hide();
+                $("#stock-down").show();
+            }
+        } else {
+            $("#stock-neutral").show();
+            $("#stock-up").hide();
+            $("#stock-down").hide();
+        }
 
-        $('#sortdirection').change(function () {
-            var sortAscValue = $(this).val();
-            var sortByValue = $('#sortby').val();
-            if (sortByValue == null) {
-                sortByValue = "Name";
+        if (sortBy === "Description") {
+            if (sortDirection === "Asc") {
+                $("#description-neutral").hide();
+                $("#description-up").show();
+                $("#description-down").hide();
             }
-            window.location.href = 'Product?sortBy=' + sortByValue
-                + "&sortDirection=" + sortAscValue;
-        });
+            else {
+                $("#description-neutral").hide();
+                $("#description-up").hide();
+                $("#description-down").show();
+            }
+        } else {
+            $("#description-neutral").show();
+            $("#description-up").hide();
+            $("#description-down").hide();
+        }
+    }
+
+    $(document).ready(function () {
+        initializeSortButtons();
     });
 </script>
 
@@ -58,81 +117,115 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div>
-            <span><strong>Sort By:</strong></span>
-            <span>
-                <select id="sortby">
-                    <option></option>
-                    <option value="Name">Name</option>
-                    <option value="StockQuantity">Quantity</option>
-                </select>
-            </span>
-        </div>
-        <div>
-            <span><strong>Sort Direction:</strong></span>
-            <span>
-                <select id="sortdirection">
-                    <option></option>
-                    <option value="Asc">Ascending</option>
-                    <option value="Desc">Descending</option>
-                </select>
-            </span>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
         
         <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                        <span id="product-neutral">
+                            <button class="btn btn-xs" onclick="sortByProductName();">
+                                <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+                            </button>                            
+                        </span>
+                        <span id="product-down">
+                            <button class="btn btn-xs" onclick="sortByProductName();">
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                        <span id="product-up">
+                            <button class="btn btn-xs" onclick="sortByProductName();">
+                                <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </th>
+                    <th>
+                        Description
+                        <span id="description-neutral">
+                            <button class="btn btn-xs" onclick="sortByDescription();">
+                                <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                        <span id="description-down">
+                            <button class="btn btn-xs" onclick="sortByDescription();">
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                        <span id="description-up">
+                            <button class="btn btn-xs" onclick="sortByDescription();">
+                                <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </th>
+                    <th>
+                        Stock
+                        <span id="stock-neutral">
+                            <button class="btn btn-xs" onclick="sortByStock();">
+                                <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                        <span id="stock-down">
+                            <button class="btn btn-xs" onclick="sortByStock();">
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                        <span id="stock-up">
+                            <button class="btn btn-xs" onclick="sortByStock();">
+                                <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
             @foreach (var row in Model.Rows)
             {
-                <tr>
-                    <td>
-                        <div id="product-details-@row.Id">
-                            <strong>@row.Cells[0]</strong> - @row.Cells[2] <br/>
-                            <strong>Stocks Available: </strong>@row.Cells[1]
-                        </div>
-                        <div id="product-details-editor-@row.Id" style="display: none">
-                            @using (Html.BeginForm("UpdateProduct", "Product"))
-                            {
-                                <input name="id" type="hidden" value="@row.Id"/>
-                                <div class="form-group">
-                                    <input name="name" placeholder="Name" class="form-control" type="text" value="@row.Cells[0]"/>
-                                </div>
-                                <div class="form-group">
-                                    <input name="description" placeholder="Description" class="form-control" type="text" value="@row.Cells[2]"/>
-                                </div>
-                                <a class="btn btn-default" onclick="cancelDetailsEditorBtn(@row.Id);">Cancel</a>
-                                <button class="btn btn-primary">Save</button>
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        <button class="btn btn-default" onclick="editDetailsBtn(@row.Id)">Edit</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>@row.Cells[0]</td>
+                <td>@row.Cells[2]</td>
+                <td>@row.Cells[1]</td>
+                <td>
+                    <button class="btn btn-default" onclick="editDetailsBtn(@row.Id)">Edit</button>
+                    <div id="product-details-editor-@row.Id" style="display: none">
+                        @using(Html.BeginForm("UpdateProduct", "Product"))
+                        {
+                            <input name="id" type="hidden" value="@row.Id" />
+                            <div class="form-group">
+                                <input name="name" placeholder="Name" class="form-control" type="text" value="@row.Cells[0]" />
+                            </div>
+                            <div class="form-group">
+                                <input name="description" placeholder="Description" class="form-control" type="text" value="@row.Cells[2]" />
+                            </div>
+                            <a class="btn btn-default" onclick="cancelDetailsEditorBtn(@row.Id);">Cancel</a>
+                            <button class="btn btn-primary">Save</button>
+                        }
+                    </div>
+                </td>
+            </tr>
             }
             <tr>
                 <td>Total: @Model.TotalProductOffersCount</td>
                 <td><button class="btn btn-default" onclick="addDetailsBtn()">Add</button></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="3">
                     <div id="product-details-editor-add" style="display: none">
-                        @using (Html.BeginForm("AddProduct", "Product"))
+                        @using(Html.BeginForm("AddProduct", "Product"))
                         {
                             <div class="form-group">
-                                <input name="name" placeholder="Name" class="form-control" type="text" value=""/>
+                                <input name="name" placeholder="Name" class="form-control" type="text" value="" />
                             </div>
                             <div class="form-group">
-                                <input name="description" placeholder="Description" class="form-control" type="text" value=""/>
+                                <input name="description" placeholder="Description" class="form-control" type="text" value="" />
                             </div>
                             <a class="btn btn-default" onclick="cancelDetailsAddBtn();">Cancel</a>
                             <button class="btn btn-primary">Save</button>
                         }
                     </div>
                 </td>
+                <td></td>
             </tr>
         </table>
         <script>
@@ -151,7 +244,7 @@
                 $("#product-details-editor-add").show();
             }
 
-            function cancelDetailsaddBtn() {
+            function cancelDetailsAddBtn() {
                 $("#product-details-editor-add").hide();
                 return false;
             }
