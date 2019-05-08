@@ -32,7 +32,7 @@ namespace Shop.Pages.Management.Product
         /// Landing Page
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string sortBy, string sortDirection)
+        public ActionResult Index(string sortBy, string sortDirection, string pageNumber, string pageSize)
         {
             TableColumnIdentifier sortByidentifier = null;
             var sortDirectionAsc = true;
@@ -48,16 +48,20 @@ namespace Shop.Pages.Management.Product
             if (sortDirection != null)
                 sortDirectionAsc = String.CompareOrdinal(sortDirection, "Desc") != 0;
 
+            pageNumber = pageNumber ?? "1";
+            pageSize = pageSize ?? "5";
+
             var tableInput = new TableInput
             {
-                PageNumber = 1,
-                PageSize = 10,
+                PageNumber = int.Parse(pageNumber),
+                PageSize = int.Parse(pageSize),
                 SortDirectionAsc = sortDirectionAsc,
                 SortBy = sortByidentifier
             };
 
             var tableOutput = _productService.GetProducts(tableInput);
-            return View(tableOutput);
+            var productOutput = new ProductOutput() { Input = tableInput, Output = tableOutput };
+            return View(productOutput);
         }
 
         [HttpPost]
@@ -75,5 +79,11 @@ namespace Shop.Pages.Management.Product
             var isSuccess = handler.Handle(viewModel, CurrentUser.Id);
             return RedirectToAction("Index");
         }
+    }
+
+    public class ProductOutput
+    {
+        public TableInput Input { get; set; }
+        public TableOutput Output { get; set; }
     }
 }
