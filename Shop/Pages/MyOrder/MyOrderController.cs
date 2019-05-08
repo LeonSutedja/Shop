@@ -11,8 +11,6 @@ namespace Shop.Pages.MyOrder
     public class MyOrderController : BaseController
     {
         private readonly IOrderService _orderService;
-        private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<Shop.Order.Order> _orderRepository;
 
         public MyOrderController(IRepository<Customer> customerRepository, IOrderService orderService) : base(customerRepository)
         {
@@ -27,6 +25,7 @@ namespace Shop.Pages.MyOrder
         {
             //Hack for product repository. Rather than persisting to DB, we persist into session.
             var pendingOrders = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
+            ViewBag.Order = pendingOrders;
             var currentCustomerOrders = _orderService.GetProcessedCustomerOrders(CurrentUser);
             var viewModel = new MyOrderIndexViewModel(currentCustomerOrders, pendingOrders);
             return View(viewModel);

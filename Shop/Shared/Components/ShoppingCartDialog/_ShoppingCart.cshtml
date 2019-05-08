@@ -1,5 +1,5 @@
 ﻿@{
-    var order = (Shop.Order.Order)ViewBag.Order;
+    var order = (Shop.Order.IOrder)ViewBag.Order;
 }
 @if (order.ProductsOrdered.Any())
 {
@@ -63,7 +63,7 @@
         function removeOrderItem(productId) {
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("RemoveOrderItem")',
+                url: '@Url.Action("RemoveOrderItem", "ShoppingCartDialog")',
                 datatype: "json",
                 traditional: true,
                 data: {

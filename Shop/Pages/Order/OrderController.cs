@@ -34,10 +34,6 @@ namespace Shop.Pages.Order
         public JsonResult AddOrderItem(int productId)
             => Json(new { success = _addOrderItem(productId) });
 
-        [HttpPost]
-        public JsonResult RemoveOrderItem(int productId)
-            => Json(new { success = _removeOrderItem(productId) });
-
         private bool _addOrderItem(int productId)
         {
             var productOrdered = _productRepository.Get(productId);
@@ -53,21 +49,6 @@ namespace Shop.Pages.Order
             customerCurrentOrder.AddProduct(productOrdered, 1);
             SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Set(customerCurrentOrder);
             return true;
-        }
-
-        private bool _removeOrderItem(int productId)
-        {
-            var productOrdered = _productRepository.Get(productId);
-            var customerCurrentOrder = SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Get();
-            var currentOrderItem = customerCurrentOrder.GetOrderItemForProductOrdered(productId);
-
-            // Check if there's an order
-            if (currentOrderItem == null) return false;
-
-            // Add the product
-            customerCurrentOrder.RemoveProduct(productOrdered, 1);
-            SessionFacade.CurrentCustomerOrder(HttpContext, CurrentUser).Set(customerCurrentOrder);
-            return true;
-        }
+        }       
     }
 }
