@@ -10,6 +10,6 @@ namespace Shop.Infrastructure.TableCreator
 
         public List<TableRow> Rows { get; set; }
 
-        public int TotalProductOffersCount { get; set; }
+        public int TotalItems { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace Shop.Infrastructure.TableCreator.Builder
             {
                 Rows = rowSummary,
                 Columns = displayColumnDtos,
-                TotalProductOffersCount = totalItems
+                TotalItems = totalItems
             };
         }
 

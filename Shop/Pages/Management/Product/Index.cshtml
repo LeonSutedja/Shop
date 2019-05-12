@@ -63,12 +63,28 @@
                 <tr>
                     @foreach(var col in Model.Output.Columns)
                     {
-                        <th>@col.Title
-                            <span>
-                                <a class="btn btn-xs" onclick="sortBy('@col.Identifier.AdditionalData');">
-                                    <span id="icon-@col.Identifier.AdditionalData" class="glyphicon glyphicon-sort" aria-hidden="true"></span>
-                                </a>
-                            </span>
+                        <th>
+                            <div>
+                                <span>@col.Title</span>
+                                <span>
+                                    <a class="btn btn-xs" onclick="sortBy('@col.Identifier.AdditionalData');">
+                                        <span id="icon-@col.Identifier.AdditionalData" class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    @if(col.FilterStrategy.Equals(Shop.Infrastructure.TableCreator.Column.TableColumnFilterStrategy.FreeText))
+                                    {
+                                        <input id="input-@col.Identifier.AdditionalData" type="text" />
+                                    }
+                                    else if(col.FilterStrategy.Equals(Shop.Infrastructure.TableCreator.Column.TableColumnFilterStrategy.NumericRange))
+                                    {
+                                        <input id="input-min-@col.Identifier.AdditionalData" type="text" maxlength="3" size="3" />
+                                        <input id="input-max-@col.Identifier.AdditionalData" type="text" maxlength="3" size="3" />
+                                    }
+                                </span>
+                            </div>
                         </th>
                     }
                 </tr>
@@ -100,7 +116,7 @@
                         </tr>
                     }
                     <tr>
-                        <td>Total: @Model.Output.TotalProductOffersCount</td>
+                        <td>Total: @Model.Output.TotalItems</td>
                         <td><button class="btn btn-default" onclick="addDetailsBtn()">Add</button></td>
                         <td></td>
                         <td></td>
@@ -127,7 +143,7 @@
         </table>
         <ul class="pagination">
         @{
-            var totalPages = Math.Ceiling(Model.Output.TotalProductOffersCount / (decimal)Model.Input.PageSize);
+            var totalPages = Math.Ceiling(Model.Output.TotalItems / (decimal)Model.Input.PageSize);
         }           
         @for (var i = 1; i <= totalPages; i++)
         {

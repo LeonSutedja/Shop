@@ -6,6 +6,7 @@ using Shop.Infrastructure.TableCreator.Column;
 using Shop.Shared.Controllers;
 using Shop.Shared.Models.CommandHandler;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -36,9 +37,9 @@ namespace Shop.Pages.Management.Product
         {
             TableColumnIdentifier sortByidentifier = null;
             var sortDirectionAsc = true;
+            var allProductViewColumns = _productColumnRepository.GetAllViewColumns();
             if (!string.IsNullOrEmpty(sortBy))
             {
-                var allProductViewColumns = _productColumnRepository.GetAllViewColumns();
                 sortByidentifier = allProductViewColumns
                     .First(
                         col => col.GetColumnDefinition().Identifier.AdditionalData == sortBy)
@@ -60,7 +61,7 @@ namespace Shop.Pages.Management.Product
             };
 
             var tableOutput = _productService.GetProducts(tableInput);
-            var productOutput = new ProductOutput() { Input = tableInput, Output = tableOutput };
+            var productOutput = new ProductOutput() { Input = tableInput, Output = tableOutput, AllColumns = allProductViewColumns };
             return View(productOutput);
         }
 
@@ -85,5 +86,6 @@ namespace Shop.Pages.Management.Product
     {
         public TableInput Input { get; set; }
         public TableOutput Output { get; set; }
+        public IList<ITableColumn<Infrastructure.Product.Product>> AllColumns { get; set; }
     }
 }
