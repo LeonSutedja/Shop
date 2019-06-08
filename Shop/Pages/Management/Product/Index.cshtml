@@ -31,14 +31,10 @@
         getSortPromises().then((values) => {
             let sortBy = values[0];
             let sortDirection = values[1];
-            if (sortBy === identifier) {
-                if (sortDirection === "Desc") sortDirection = "Asc";
-                else sortDirection = "Desc";
-            }
-            else {
-                sortBy = identifier;
-                sortDirection = "Desc";
-            }
+
+            sortDirection = ((sortBy === identifier) && (sortDirection === "Desc")) ? "Asc" : "Desc";
+            sortBy = identifier;
+
             window.location.href = 'Product?sortBy=' + sortBy + '&sortDirection=' + sortDirection;
         });
 
@@ -49,19 +45,40 @@
             const sortBy = values[0];
             const sortDirection = values[1];
             if (sortBy !== null) {
-                $("#icon-" + sortBy).removeClass("glyphicon-sort");
-                if (sortDirection === "Asc") {
-                    $("#icon-" + sortBy).addClass("glyphicon-triangle-top");
-                }
-                else $("#icon-" + sortBy).addClass("glyphicon-triangle-bottom");
+                const className = (sortDirection === "Asc") ? "glyphicon-triangle-top" : "glyphicon-triangle-bottom";
+                $("#icon-" + sortBy)
+                    .removeClass("glyphicon-sort")
+                    .addClass(className);
             }
         });
 
-        
+
+    }
+
+    function initializeOnChanged() {
+        @foreach(var col in Model.Output.Columns)
+        {
+            if(col.FilterStrategy.Equals(Shop.Infrastructure.TableCreator.Column.TableColumnFilterStrategy.FreeText))
+            {
+                <text>
+                $("#input-@col.Identifier.AdditionalData").change(() => {
+                    const val = $("#input-@col.Identifier.AdditionalData").val();
+                });
+                </text>
+            }
+            else if(col.FilterStrategy.Equals(Shop.Infrastructure.TableCreator.Column.TableColumnFilterStrategy.NumericRange))
+            {
+            }
+        }
+    }
+
+    function createFilter(value, type) {
+
     }
 
     $(document).ready(function () {
         initializeSortButtons();
+        initializeOnChanged();
     });
 </script>
 
